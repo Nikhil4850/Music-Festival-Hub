@@ -146,13 +146,93 @@ class ApiService {
 
     // User endpoints
     async getUserProfile() {
+        if (this.useMockData) {
+            await this.delay(800);
+            return {
+                success: true,
+                data: {
+                    user: {
+                        id: 'user123',
+                        name: 'Demo User',
+                        email: 'demo@example.com',
+                        firstName: 'Demo',
+                        lastName: 'User',
+                        phone: '+91 9876543210',
+                        dateOfBirth: '1990-01-01',
+                        bio: 'Music enthusiast and festival lover',
+                        location: 'mumbai',
+                        avatar: null,
+                        preferences: {
+                            notifications: {
+                                emailNotifications: true,
+                                smsNotifications: false,
+                                eventRecommendations: true
+                            },
+                            genres: ['edm', 'rock', 'indie']
+                        }
+                    }
+                }
+            };
+        }
         return await this.request('/users/profile');
     }
 
     async updateUserProfile(profileData) {
+        if (this.useMockData) {
+            await this.delay(1000);
+            return {
+                success: true,
+                message: 'Profile updated successfully',
+                data: {
+                    user: { ...profileData, id: 'user123' }
+                }
+            };
+        }
         return await this.request('/users/profile', {
             method: 'PUT',
             body: JSON.stringify(profileData)
+        });
+    }
+
+    async updateUserAvatar(avatar) {
+        if (this.useMockData) {
+            await this.delay(800);
+            return {
+                success: true,
+                message: 'Avatar updated successfully',
+                data: { avatar }
+            };
+        }
+        return await this.request('/users/avatar', {
+            method: 'PUT',
+            body: JSON.stringify({ avatar })
+        });
+    }
+
+    async updateUserPassword(passwordData) {
+        if (this.useMockData) {
+            await this.delay(1200);
+            return {
+                success: true,
+                message: 'Password updated successfully'
+            };
+        }
+        return await this.request('/users/password', {
+            method: 'PUT',
+            body: JSON.stringify(passwordData)
+        });
+    }
+
+    async deleteUserAccount() {
+        if (this.useMockData) {
+            await this.delay(1500);
+            return {
+                success: true,
+                message: 'Account deleted successfully'
+            };
+        }
+        return await this.request('/users/account', {
+            method: 'DELETE'
         });
     }
 
