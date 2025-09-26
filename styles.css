@@ -2566,10 +2566,16 @@ body {
     transform: scale(1.1);
 }
 
-.social-section .social-links {
+/* Social Links - Universal Styling */
+.social-links {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.social-section .social-links {
+    gap: 20px;
 }
 
 .social-link {
@@ -2578,13 +2584,13 @@ body {
     justify-content: center;
     width: 45px;
     height: 45px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 50%;
-    color: #a855f7;
-    font-size: 1.1rem;
+    color: #ffffff;
+    font-size: 1.2rem;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
 }
@@ -2596,9 +2602,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #ff006e, #8b5cf6);
+    background: linear-gradient(135deg, #ff006e, #8b5cf6, #06b6d4);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
     z-index: 1;
 }
 
@@ -2607,20 +2613,37 @@ body {
 }
 
 .social-link:hover {
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4);
+    transform: translateY(-8px) scale(1.15);
+    box-shadow: 0 15px 35px rgba(255, 0, 110, 0.5);
     color: white;
-    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .social-link i {
     position: relative;
     z-index: 2;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .social-link:hover i {
-    transform: rotate(360deg);
+    transform: rotate(360deg) scale(1.1);
+}
+
+/* Platform-specific colors on hover */
+.social-link:hover:nth-child(1) { /* Facebook */
+    box-shadow: 0 15px 35px rgba(24, 119, 242, 0.4);
+}
+
+.social-link:hover:nth-child(2) { /* Twitter */
+    box-shadow: 0 15px 35px rgba(29, 161, 242, 0.4);
+}
+
+.social-link:hover:nth-child(3) { /* Instagram */
+    box-shadow: 0 15px 35px rgba(225, 48, 108, 0.4);
+}
+
+.social-link:hover:nth-child(4) { /* YouTube */
+    box-shadow: 0 15px 35px rgba(255, 0, 0, 0.4);
 }
 
 .footer-bottom {

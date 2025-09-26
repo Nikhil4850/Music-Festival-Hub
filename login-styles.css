@@ -440,7 +440,6 @@
 .cta-button:disabled {
     opacity: 0.7;
     cursor: not-allowed;
-    transform: none;
 }
 
 .button-glow {
@@ -471,6 +470,133 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Social Links - Enhanced Styling */
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.social-section .social-links {
+    gap: 20px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff006e, #8b5cf6, #06b6d4);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+.social-link:hover::before {
+    opacity: 1;
+}
+
+.social-link:hover {
+    transform: translateY(-8px) scale(1.15);
+    box-shadow: 0 15px 35px rgba(255, 0, 110, 0.5);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.social-link i {
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s ease;
+}
+
+.social-link:hover i {
+    transform: rotate(360deg) scale(1.1);
+}
+
+/* Platform-specific colors on hover */
+.social-link:hover:nth-child(1) { /* Facebook */
+    box-shadow: 0 15px 35px rgba(24, 119, 242, 0.4);
+}
+
+.social-link:hover:nth-child(2) { /* Twitter */
+    box-shadow: 0 15px 35px rgba(29, 161, 242, 0.4);
+}
+
+.social-link:hover:nth-child(3) { /* Instagram */
+    box-shadow: 0 15px 35px rgba(225, 48, 108, 0.4);
+}
+
+.social-link:hover:nth-child(4) { /* YouTube */
+    box-shadow: 0 15px 35px rgba(255, 0, 0, 0.4);
+}
+
+/* Floating Music Notes Animation */
+.floating-notes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.note {
+    position: absolute;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.3);
+    animation: float-up 8s infinite linear;
+}
+
+.note:nth-child(1) { left: 10%; animation-delay: 0s; }
+.note:nth-child(2) { left: 20%; animation-delay: 1s; }
+.note:nth-child(3) { left: 30%; animation-delay: 2s; }
+.note:nth-child(4) { left: 40%; animation-delay: 3s; }
+.note:nth-child(5) { left: 50%; animation-delay: 4s; }
+.note:nth-child(6) { left: 60%; animation-delay: 5s; }
+.note:nth-child(7) { left: 70%; animation-delay: 6s; }
+.note:nth-child(8) { left: 80%; animation-delay: 7s; }
+.note:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+.note:nth-child(10) { left: 15%; animation-delay: 2.5s; }
+
+@keyframes float-up {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
     }
 }
 
