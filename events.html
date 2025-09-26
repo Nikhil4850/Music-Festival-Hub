@@ -15,7 +15,6 @@
             <!-- Logo -->
             <div class="logo">
                 <a href="index.html">
-                    <i class="fas fa-arrow-left" style="margin-right: 12px; font-size: 1.2rem;"></i>
                     <i class="fas fa-music"></i>
                     <span>Music Festival Hub</span>
                 </a>
@@ -43,11 +42,52 @@
                 </div>
             </div>
 
-            <!-- User Section -->
-            <div class="nav-menu">
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <a href="index.html" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="about.html" class="nav-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About</span>
+                </a>
+                <a href="bookings.html" class="nav-btn">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>My Bookings</span>
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="mobile-nav-toggle" id="mobileNavToggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-nav-content">
+            <a href="index.html" class="mobile-nav-link">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="events.html" class="mobile-nav-link active">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Events</span>
+            </a>
+            <a href="bookings.html" class="mobile-nav-link">
+                <i class="fas fa-ticket-alt"></i>
+                <span>My Bookings</span>
+            </a>
+            <a href="about.html" class="mobile-nav-link">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+        </div>
+    </div>
 
     <!-- Mobile Filter Toggle -->
     <div class="mobile-filter-toggle">
@@ -317,11 +357,11 @@
                         <div class="event-category">EDM Festival</div>
                     </div>
                     <div class="event-details">
-                        <h3 class="event-title">Sunburn Festival 2024</h3>
+                        <h3 class="event-title">Sunburn Festival 2025</h3>
                         <div class="event-date-venue">
                             <div class="event-date">
                                 <i class="fas fa-calendar-alt"></i>
-                                <span>Dec 28-30, 2024</span>
+                                <span>Dec 28-30, 2025</span>
                             </div>
                             <div class="event-venue">
                                 <i class="fas fa-map-marker-alt"></i>
@@ -1149,7 +1189,7 @@
                     <h3>Get In Touch</h3>
                     <div class="contact-info">
                         <p><i class="fas fa-envelope"></i> info@musicfestivalhub.com</p>
-                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-phone"></i> +91 9766323998</p>
                         <p><i class="fas fa-map-marker-alt"></i> 123 Music Street, Mumbai, Maharashtra 400001</p>
                     </div>
                 </div>
@@ -1174,7 +1214,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p class="copyright"> 2024 Music Festival Hub. All rights reserved.</p>
+                <p class="copyright">&copy; 2025 Music Festival Hub. All rights reserved.</p>
                 <div class="footer-links">
                     <a href="#">Privacy Policy</a>
                     <a href="#">Terms of Service</a>
@@ -1187,6 +1227,34 @@
     <script src="events-script.js"></script>
     <script src="auth-manager.js"></script>
     <script>
+        // Mobile navigation toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileNavToggle = document.getElementById('mobileNavToggle');
+            const mobileNavMenu = document.getElementById('mobileNavMenu');
+            
+            mobileNavToggle.addEventListener('click', function() {
+                mobileNavToggle.classList.toggle('active');
+                mobileNavMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on a link
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileNavToggle.classList.remove('active');
+                    mobileNavMenu.classList.remove('active');
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileNavToggle.contains(e.target) && !mobileNavMenu.contains(e.target)) {
+                    mobileNavToggle.classList.remove('active');
+                    mobileNavMenu.classList.remove('active');
+                }
+            });
+        });
+
         // Function to navigate to event details page with event data
         function navigateToEventDetails(eventCard) {
             // Extract event data from the card

@@ -8,19 +8,21 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    color: #ffffff;
     line-height: 1.6;
+    min-height: 100vh;
 }
 
 /* Header Styles */
 .header {
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .header-container {
@@ -38,9 +40,13 @@ body {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #dc2626;
+    color: #ff006e;
     font-weight: 800;
     font-size: 1.5rem;
+    background: linear-gradient(135deg, #ff006e, #8b5cf6);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .logo i {
@@ -68,25 +74,31 @@ body {
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: #6b7280;
+    color: #cbd5e1;
     font-size: 1.1rem;
 }
 
 .search-bar input {
     width: 100%;
     padding: 12px 15px 12px 45px;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
     font-size: 1rem;
-    background: #f9fafb;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
     transition: all 0.3s ease;
 }
 
 .search-bar input:focus {
     outline: none;
-    border-color: #dc2626;
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+    border-color: #ff006e;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(255, 0, 110, 0.2);
+}
+
+.search-bar input::placeholder {
+    color: #cbd5e1;
 }
 
 .city-selector {
@@ -94,20 +106,22 @@ body {
     align-items: center;
     gap: 8px;
     padding: 12px 16px;
-    background: #fff;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 140px;
 }
 
 .city-selector:hover {
-    border-color: #dc2626;
+    border-color: #ff006e;
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .city-selector i {
-    color: #dc2626;
+    color: #ff006e;
 }
 
 .city-selector select {
@@ -115,7 +129,7 @@ body {
     background: none;
     font-size: 1rem;
     font-weight: 500;
-    color: #374151;
+    color: #ffffff;
     cursor: pointer;
     outline: none;
 }
@@ -131,31 +145,32 @@ body {
     align-items: center;
     gap: 8px;
     padding: 10px 16px;
-    background: #f3f4f6;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .user-profile:hover {
-    background: #e5e7eb;
-    border-color: #dc2626;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ff006e;
 }
 
 .user-profile i:first-child {
     font-size: 1.5rem;
-    color: #6b7280;
+    color: #cbd5e1;
 }
 
 .user-profile span {
     font-weight: 600;
-    color: #374151;
+    color: #ffffff;
 }
 
 .user-profile i:last-child {
     font-size: 0.8rem;
-    color: #9ca3af;
+    color: #cbd5e1;
 }
 
 /* Main Container */
@@ -263,11 +278,12 @@ body {
 
 /* Event Info */
 .event-info {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
     border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 30px;
 }
 
@@ -278,7 +294,7 @@ body {
 .event-title {
     font-size: 2.5rem;
     font-weight: 800;
-    color: #111827;
+    color: #ffffff;
     margin-bottom: 15px;
     line-height: 1.2;
 }
@@ -294,12 +310,12 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #4b5563;
+    color: #cbd5e1;
     font-weight: 500;
 }
 
 .meta-item i {
-    color: #dc2626;
+    color: #ff006e;
 }
 
 .event-tags {
@@ -309,12 +325,13 @@ body {
 }
 
 .tag {
-    background: #fee2e2;
-    color: #dc2626;
+    background: rgba(255, 0, 110, 0.2);
+    color: #ff006e;
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 600;
+    border: 1px solid rgba(255, 0, 110, 0.3);
 }
 
 /* Highlighted Badges */
@@ -356,24 +373,25 @@ body {
 
 /* Section Styles */
 .about-event, .you-should-know, .facilities, .gallery, .offers, .collapsible-sections {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
     border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 30px;
 }
 
 .about-event h2, .you-should-know h2, .facilities h2, .gallery h2, .offers h2, .collapsible-sections h2 {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #111827;
+    color: #ffffff;
     margin-bottom: 20px;
 }
 
 /* About Event */
 .event-description p {
-    color: #4b5563;
+    color: #cbd5e1;
     margin-bottom: 15px;
     font-size: 1.1rem;
     line-height: 1.7;
@@ -392,7 +410,7 @@ body {
 .expand-btn {
     background: none;
     border: none;
-    color: #dc2626;
+    color: #ff006e;
     font-weight: 600;
     cursor: pointer;
     display: flex;
@@ -411,7 +429,7 @@ body {
     align-items: center;
     gap: 10px;
     margin-bottom: 12px;
-    color: #4b5563;
+    color: #cbd5e1;
     font-weight: 500;
 }
 
@@ -433,25 +451,26 @@ body {
     align-items: center;
     gap: 10px;
     padding: 20px;
-    background: #f9fafb;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .facility-item:hover {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.1);
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .facility-item i {
     font-size: 2rem;
-    color: #dc2626;
+    color: #ff006e;
 }
 
 .facility-item span {
     font-weight: 600;
-    color: #374151;
+    color: #ffffff;
     text-align: center;
 }
 
