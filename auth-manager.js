@@ -21,7 +21,7 @@ class AuthManager {
     }
 
     updateNavigation() {
-        const authNavItem = document.getElementById('authNavItem');
+        const authNavItem = document.getElementById('authSection');
         
         if (!authNavItem) {
             // Try again after a short delay if elements not found
@@ -36,18 +36,7 @@ class AuthManager {
             this.createUserDropdown(authNavItem);
         } else {
             // User is not logged in - show login link
-            if (authNavItem.closest('.user-profile')) {
-                // For events page structure
-                authNavItem.innerHTML = `
-                    <a href="login.html" id="authNavLink">
-                        <i class="fas fa-user-circle"></i>
-                        <span>Login</span>
-                    </a>
-                `;
-            } else {
-                // For index page structure
-                authNavItem.innerHTML = `<a href="login.html" class="nav-link" id="authNavLink">Login</a>`;
-            }
+            authNavItem.innerHTML = `<a href="login.html" class="nav-link login-btn">Login</a>`;
         }
     }
 
@@ -71,7 +60,7 @@ class AuthManager {
                     <i class="fas fa-user"></i>
                     My Profile
                 </a>
-                <a href="#my-bookings" class="dropdown-item">
+                <a href="bookings.html" class="dropdown-item">
                     <i class="fas fa-ticket-alt"></i>
                     My Bookings
                 </a>
@@ -87,31 +76,16 @@ class AuthManager {
         this.addDropdownStyles();
 
         // Replace the auth nav item with dropdown
-        if (authNavItem.closest('.user-profile')) {
-            // For events page structure
-            authNavItem.innerHTML = `
-                <div class="user-nav-dropdown">
-                    <button class="user-nav-btn" onclick="authManager.toggleDropdown()">
-                        <i class="fas fa-user-circle"></i>
-                        <span>${this.currentUser.name || 'Profile'}</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    ${dropdown.outerHTML}
-                </div>
-            `;
-        } else {
-            // For index page structure
-            authNavItem.innerHTML = `
-                <div class="user-nav-dropdown">
-                    <button class="user-nav-btn nav-link" onclick="authManager.toggleDropdown()">
-                        <i class="fas fa-user-circle"></i>
-                        <span>${this.currentUser.name || 'Profile'}</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    ${dropdown.outerHTML}
-                </div>
-            `;
-        }
+        authNavItem.innerHTML = `
+            <div class="user-nav-dropdown">
+                <button class="user-nav-btn nav-link" onclick="authManager.toggleDropdown()">
+                    <i class="fas fa-user-circle"></i>
+                    <span>${this.currentUser.name || 'Profile'}</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                ${dropdown.outerHTML}
+            </div>
+        `;
 
         // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {

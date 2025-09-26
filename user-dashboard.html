@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Music Festival Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .dashboard-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            padding-top: 80px;
+        }
+        
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .welcome-section {
+            text-align: center;
+            color: white;
+        }
+        
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ff006e, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .welcome-section p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+        
+        .dashboard-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.2);
+            border-color: rgba(255, 0, 110, 0.3);
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff006e, #8a2be2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+        
+        .quick-actions {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .quick-actions h2 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #ff006e, #8a2be2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 0, 110, 0.3);
+        }
+        
+        .recent-activity {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+        
+        .recent-activity h2 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff006e, #8a2be2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .activity-icon i {
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+        
+        .activity-time {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-content {
+                padding: 0 1rem;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-section h1 {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Music Festival Hub</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="bookings.html" class="nav-link">My Bookings</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div id="authSection">
+                    <!-- This will be populated by auth-manager.js -->
+                </div>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="welcome-section">
+                    <h1>Welcome Back, <span id="userName">Music Lover</span>!</h1>
+                    <p>Discover amazing events and manage your bookings</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Dashboard Cards -->
+            <div class="dashboard-grid">
+                <div class="dashboard-card" onclick="window.location.href='events.html'">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="card-title">Browse Events</div>
+                    <div class="card-description">Discover upcoming music festivals and concerts near you</div>
+                </div>
+
+                <div class="dashboard-card" onclick="window.location.href='bookings.html'">
+                    <div class="card-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <div class="card-title">My Bookings</div>
+                    <div class="card-description">View and manage your event tickets and reservations</div>
+                </div>
+
+                <div class="dashboard-card" onclick="window.location.href='profile.html'">
+                    <div class="card-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="card-title">My Profile</div>
+                    <div class="card-description">Update your preferences and account settings</div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="card-title">Favorites</div>
+                    <div class="card-description">Your saved events and favorite artists</div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="action-buttons">
+                    <a href="events.html" class="action-btn">
+                        <i class="fas fa-search"></i>
+                        Find Events
+                    </a>
+                    <a href="bookings.html" class="action-btn">
+                        <i class="fas fa-ticket-alt"></i>
+                        View Tickets
+                    </a>
+                    <a href="profile.html" class="action-btn">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h2>Recent Activity</h2>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Booked ticket for Sunburn Festival</div>
+                        <div class="activity-time">2 days ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Added NH7 Weekender to favorites</div>
+                        <div class="activity-time">1 week ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Updated profile preferences</div>
+                        <div class="activity-time">2 weeks ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                
+                <div class="footer-section contact-section">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> info@musicfestivalhub.com</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Music Street, Mumbai, Maharashtra 400001</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section social-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright"> 2024 Music Festival Hub. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth-manager.js"></script>
+    <script>
+        // Load user data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            
+            if (userData.name) {
+                document.getElementById('userName').textContent = userData.name;
+            }
+            
+            // Check if user is logged in, redirect if not
+            if (!userData.email) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>

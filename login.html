@@ -723,9 +723,11 @@
                         const userData = {
                             email: email,
                             name: email.split('@')[0],
+                            userType: 'user', // Default to regular user for login
                             isLoggedIn: true
                         };
                         localStorage.setItem('currentUser', JSON.stringify(userData));
+                        localStorage.setItem('userData', JSON.stringify(userData));
                         
                         // Update auth state
                         if (window.authManager) {
@@ -738,9 +740,9 @@
                             newValue: JSON.stringify(userData)
                         }));
                         
-                        // Redirect to home page
+                        // Redirect to appropriate dashboard
                         setTimeout(() => {
-                            window.location.href = 'index.html';
+                            window.location.href = 'user-dashboard.html';
                         }, 1500);
                     }, 1200);
                 }
@@ -823,6 +825,7 @@
                         isLoggedIn: true
                     };
                     localStorage.setItem('currentUser', JSON.stringify(userData));
+                    localStorage.setItem('userData', JSON.stringify(userData));
                     
                     // Update auth state
                     if (window.authManager) {
@@ -835,9 +838,13 @@
                         newValue: JSON.stringify(userData)
                     }));
                     
-                    // Redirect after success message
+                    // Redirect to appropriate dashboard based on user type
                     setTimeout(() => {
-                        window.location.href = 'index.html';
+                        if (userType === 'creator') {
+                            window.location.href = 'creator-dashboard.html';
+                        } else {
+                            window.location.href = 'user-dashboard.html';
+                        }
                     }, 2000);
                 }, 1500);
             });
