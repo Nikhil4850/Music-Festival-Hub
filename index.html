@@ -45,66 +45,104 @@
         <div class="video-overlay"></div>
     </div>
     
+    <!-- Floating Music Notes -->
+    <div class="floating-notes">
+        <div class="note note-1">♪</div>
+        <div class="note note-2">♫</div>
+        <div class="note note-3">♪</div>
+        <div class="note note-4">♫</div>
+        <div class="note note-5">♪</div>
+        <div class="note note-6">♫</div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title">
-                <span class="title-line">Your Gateway to</span>
-                <span class="title-main">Music Festivals</span>
+                <span class="title-line animate-slide-up">Your Gateway to</span>
+                <span class="title-main animate-bounce-in">Music Festivals</span>
+                <div class="title-sparkles">
+                    <span class="sparkle sparkle-1">✨</span>
+                    <span class="sparkle sparkle-2">⭐</span>
+                    <span class="sparkle sparkle-3">✨</span>
+                </div>
             </h1>
-            <p class="hero-subtitle">Discover, book, and experience the world's most electrifying music festivals all in one place</p>
+            <p class="hero-subtitle animate-fade-in">Discover, book, and experience the world's most electrifying music festivals all in one place</p>
             <div class="hero-buttons">
-                <button class="cta-button primary" onclick="window.location.href='events.html'">
-                    <span>Book Tickets Now</span>
+                <button class="cta-button primary pulse-button" onclick="window.location.href='events.html'">
+                    <span>🎵 Book Tickets Now</span>
                     <div class="button-glow"></div>
+                    <div class="button-ripple"></div>
                 </button>
-                <button class="cta-button secondary" onclick="window.location.href='events.html'">
-                    <span>Browse Events</span>
+                <button class="cta-button secondary shake-button" onclick="window.location.href='events.html'">
+                    <span>🎪 Browse Events</span>
                     <div class="button-glow"></div>
+                    <div class="button-ripple"></div>
                 </button>
             </div>
         </div>
         
         <!-- Scroll Indicator -->
-        <div class="scroll-indicator">
+        <div class="scroll-indicator bounce-animation">
             <div class="scroll-arrow"></div>
+            <span class="scroll-text"></span>
         </div>
     </section>
 
     <!-- Preview Section -->
     <section class="preview-section">
         <div class="container">
+            <div class="section-header energetic-header">
+                <h2 class="section-title glow-text">🔥 Why Choose Us? 🔥</h2>
+                <div class="energy-bar">
+                    <div class="energy-fill"></div>
+                </div>
+            </div>
             <div class="features-grid">
-                <div class="feature-card" data-feature="lineup">
-                    <div class="card-icon">
+                <div class="feature-card hover-lift" data-feature="lineup">
+                    <div class="card-icon rotating-icon">
                         <i class="fas fa-music"></i>
+                        <div class="icon-pulse"></div>
                     </div>
-                    <h3>Epic Lineup</h3>
+                    <h3>🎵 Epic Lineup</h3>
                     <p>World-class artists and emerging talents across multiple genres</p>
                     <div class="card-glow"></div>
+                    <div class="card-particles">
+                        <span class="particle">♪</span>
+                        <span class="particle">♫</span>
+                        <span class="particle">♪</span>
+                    </div>
                 </div>
                 
-                <div class="feature-card interactive-stage-card" data-feature="stages" onclick="openStagePreview()">
-                    <div class="card-icon">
+                <div class="feature-card hover-lift" data-feature="stages">
+                    <div class="card-icon rotating-icon">
                         <i class="fas fa-guitar"></i>
+                        <div class="icon-pulse"></div>
                     </div>
-                    <h3>Multiple Stages</h3>
+                    <h3>🎸 Multiple Stages</h3>
                     <p>Experience diverse performances across uniquely designed stages</p>
-                    <div class="stage-preview-hint">
-                        <i class="fas fa-eye"></i>
-                        <span>Click to explore stages</span>
-                    </div>
                     <div class="card-glow"></div>
+                    <div class="card-particles">
+                        <span class="particle">🎤</span>
+                        <span class="particle">🎸</span>
+                        <span class="particle">🥁</span>
+                    </div>
                 </div>
                 
-                <div class="feature-card" data-feature="tickets">
-                    <div class="card-icon">
+                <div class="feature-card hover-lift" data-feature="tickets">
+                    <div class="card-icon rotating-icon">
                         <i class="fas fa-ticket-alt"></i>
+                        <div class="icon-pulse"></div>
                     </div>
-                    <h3>Premium Tickets</h3>
+                    <h3>🎫 Premium Tickets</h3>
                     <p>VIP experiences, general admission, and exclusive backstage access</p>
                     <div class="card-glow"></div>
+                    <div class="card-particles">
+                        <span class="particle">⭐</span>
+                        <span class="particle">✨</span>
+                        <span class="particle">🎉</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,345 +151,107 @@
     <!-- Lineup Section -->
     <section class="lineup-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Featured Lineup</h2>
-                <p class="section-subtitle">Discover the incredible artists performing at our upcoming festivals</p>
+            <div class="section-header energetic-header">
+                <h2 class="section-title rainbow-text">🌟 Featured Lineup 🌟</h2>
+                <p class="section-subtitle pulse-text">Discover the incredible artists performing at our upcoming festivals</p>
+                <div class="beat-visualizer">
+                    <div class="beat-bar"></div>
+                    <div class="beat-bar"></div>
+                    <div class="beat-bar"></div>
+                    <div class="beat-bar"></div>
+                    <div class="beat-bar"></div>
+                </div>
             </div>
             
             <div class="lineup-grid">
-                <div class="artist-card">
+                <div class="artist-card dancing-card">
                     <div class="artist-image">
                         <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arijit Singh">
+                        <div class="image-overlay">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
                     </div>
                     <div class="artist-info">
-                        <h3>Arijit Singh</h3>
-                        <p class="artist-genre">Bollywood Playback</p>
+                        <h3>🎤 Arijit Singh</h3>
+                        <p class="artist-genre glowing-genre">Bollywood Playback</p>
                         <p class="artist-description">India's most beloved playback singer known for soulful melodies and romantic ballads.</p>
+                        <div class="popularity-meter">
+                            <div class="meter-fill" style="width: 95%;"></div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="artist-card">
+                <div class="artist-card dancing-card">
                     <div class="artist-image">
                         <img src="https://www.iwmbuzz.com/wp-content/uploads/2023/04/armaan-malik-enjoys-stage-life-from-last-night-concert-fans-cant-thank-enough-4-736x920.jpg" alt="Armaan Malik">
+                        <div class="image-overlay">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
                     </div>
                     <div class="artist-info">
-                        <h3>Armaan Malik</h3>
-                        <p class="artist-genre">Bollywood/Pop</p>
+                        <h3>🎵 Armaan Malik</h3>
+                        <p class="artist-genre glowing-genre">Bollywood/Pop</p>
                         <p class="artist-description">Young and talented playback singer known for his melodious voice and contemporary hits.</p>
+                        <div class="popularity-meter">
+                            <div class="meter-fill" style="width: 88%;"></div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="artist-card">
+                <div class="artist-card dancing-card">
                     <div class="artist-image">
                         <img src="https://images.ctfassets.net/opz1rk40r4ou/cOCZg13AajyDP2Vc0FxdN/42e69f2ebfe6bfd4f2bfe557a0b62634/Shreya_Ghoshal_performs_at_Jubilee_Stage_m52372.jpg" alt="Shreya Ghoshal">
+                        <div class="image-overlay">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
                     </div>
                     <div class="artist-info">
-                        <h3>Shreya Ghoshal</h3>
-                        <p class="artist-genre">Classical/Bollywood</p>
+                        <h3>👑 Shreya Ghoshal</h3>
+                        <p class="artist-genre glowing-genre">Classical/Bollywood</p>
                         <p class="artist-description">Legendary playback singer with a mesmerizing voice and numerous awards.</p>
+                        <div class="popularity-meter">
+                            <div class="meter-fill" style="width: 98%;"></div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="artist-card">
+                <div class="artist-card dancing-card">
                     <div class="artist-image">
                         <img src="https://www.koimoi.com/wp-content/new-galleries/2020/06/guru-randhawa-confirms-first-live-show-post-lockdown-001.jpg" alt="Guru Randhawa">
+                        <div class="image-overlay">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
                     </div>
                     <div class="artist-info">
-                        <h3>Guru Randhawa</h3>
-                        <p class="artist-genre">Punjabi Pop</p>
+                        <h3>🔥 Guru Randhawa</h3>
+                        <p class="artist-genre glowing-genre">Punjabi Pop</p>
                         <p class="artist-description">Popular Punjabi singer and songwriter known for catchy beats and energetic performances.</p>
+                        <div class="popularity-meter">
+                            <div class="meter-fill" style="width: 92%;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <div class="lineup-actions">
-                <button class="cta-button primary" onclick="window.location.href='events.html'">
-                    <span>View Full Lineup</span>
+                <button class="cta-button primary mega-button" onclick="window.location.href='events.html'">
+                    <span>🚀 View Full Lineup</span>
                     <div class="button-glow"></div>
+                    <div class="button-explosion"></div>
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- Main App Container -->
-    <div class="app-container" id="app">
-        <!-- Events Page -->
-        <section class="page events-page" id="events" style="display: none;">
-            <div class="container">
-                <div class="page-header">
-                    <h2 class="page-title">Upcoming Festivals</h2>
-                    <div class="view-toggle">
-                        <button class="view-btn active" data-view="grid">Grid</button>
-                        <button class="view-btn" data-view="list">List</button>
-                    </div>
-                </div>
-                
-                <div class="events-grid" id="eventsGrid">
-                    <!-- Events will be dynamically loaded -->
-                </div>
-            </div>
-        </section>
 
-        <!-- Event Details Page -->
-        <section class="page event-details-page" id="event-details" style="display: none;">
-            <div class="event-banner" id="eventBanner">
-                <!-- Dynamic banner content -->
-            </div>
-            
-            <div class="container">
-                <div class="event-tabs">
-                    <button class="tab-btn active" data-tab="lineup">Lineup</button>
-                    <button class="tab-btn" data-tab="stages">Stages</button>
-                    <button class="tab-btn" data-tab="about">About</button>
-                    <button class="tab-btn" data-tab="tickets">Tickets</button>
-                </div>
-                
-                <div class="tab-content" id="tabContent">
-                    <!-- Dynamic tab content -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Booking Page -->
-        <section class="page booking-page" id="booking" style="display: none;">
-            <div class="container">
-                <div class="booking-container">
-                    <div class="booking-form-section">
-                        <h2>Book Your Tickets</h2>
-                        <form class="booking-form" id="bookingForm">
-                            <div class="form-group">
-                                <label for="fullName">Full Name</label>
-                                <input type="text" id="fullName" name="fullName" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="ticketType">Ticket Type</label>
-                                    <select id="ticketType" name="ticketType" required>
-                                        <option value="">Select Ticket Type</option>
-                                        <option value="regular" data-price="2999">Regular - ₹2,999</option>
-                                        <option value="vip" data-price="5999">VIP - ₹5,999</option>
-                                        <option value="backstage" data-price="9999">Backstage - ₹9,999</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="quantity">Quantity</label>
-                                    <input type="number" id="quantity" name="quantity" min="1" max="10" value="1" required>
-                                </div>
-                            </div>
-                            
-                            <div class="price-summary">
-                                <div class="price-breakdown">
-                                    <div class="price-line">
-                                        <span>Ticket Price:</span>
-                                        <span id="ticketPrice">₹0</span>
-                                    </div>
-                                    <div class="price-line">
-                                        <span>Quantity:</span>
-                                        <span id="ticketQuantity">0</span>
-                                    </div>
-                                    <div class="price-line total">
-                                        <span>Total:</span>
-                                        <span id="totalPrice">₹0</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="payment-section">
-                                <h3>Payment Information</h3>
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="cardNumber">Card Number</label>
-                                        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="expiryDate">Expiry Date</label>
-                                        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="cvv">CVV</label>
-                                        <input type="text" id="cvv" name="cvv" placeholder="123" required>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <button type="submit" class="cta-button primary book-btn">
-                                <span>Complete Booking</span>
-                                <div class="button-glow"></div>
-                            </button>
-                        </form>
-                    </div>
-                    
-                    <div class="booking-summary" id="bookingSummary">
-                        <!-- Dynamic booking summary -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- My Bookings Page -->
-        <section class="page bookings-page" id="my-bookings" style="display: none;">
-            <div class="container">
-                <h2 class="page-title">My Bookings</h2>
-                <div class="bookings-list" id="bookingsList">
-                    <!-- Dynamic bookings content -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Confirmation Page -->
-        <section class="page confirmation-page" id="confirmation" style="display: none;">
-            <div class="container">
-                <div class="confirmation-content">
-                    <!-- Animation Container -->
-                    <div class="ticket-animation-container">
-                        <div class="child-character" id="childCharacter">
-                            <div class="child-body"></div>
-                            <div class="child-head"></div>
-                            <div class="child-arm"></div>
-                            <div class="child-leg"></div>
-                        </div>
-                        <div class="ticket-element" id="ticketElement">
-                            <div class="ticket-front">
-                                <div class="ticket-logo">🎟️</div>
-                                <div class="ticket-text">TICKET</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Success Content (Initially hidden) -->
-                    <div class="success-content" id="successContent" style="display: none;">
-                        <div class="success-icon">🎉</div>
-                        <h2>Booking Successful!</h2>
-                        <p>Your tickets have been booked successfully. Check your email for confirmation details.</p>
-                        <div class="confirmation-actions">
-                            <button class="cta-button primary" onclick="navigateTo('my-bookings')">
-                                <span>View My Bookings</span>
-                                <div class="button-glow"></div>
-                            </button>
-                            <button class="cta-button secondary" onclick="navigateTo('events')">
-                                <span>Book More Tickets</span>
-                                <div class="button-glow"></div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <!-- Stage Preview Modal -->
-    <div class="stage-preview-modal" id="stagePreviewModal">
-        <div class="modal-overlay" onclick="closeStagePreview()"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Festival Stages</h2>
-                <button class="close-btn" onclick="closeStagePreview()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="stages-container">
-                <div class="stage-card active" data-stage="main" onclick="selectStage('main')">
-                    <div class="stage-visual">
-                        <div class="stage-platform main-stage">
-                            <div class="stage-lights">
-                                <div class="light"></div>
-                                <div class="light"></div>
-                                <div class="light"></div>
-                            </div>
-                            <div class="stage-screen"></div>
-                        </div>
-                        <div class="crowd-area">
-                            <div class="crowd-section vip"></div>
-                            <div class="crowd-section general"></div>
-                        </div>
-                    </div>
-                    <div class="stage-info">
-                        <h3>Main Stage</h3>
-                        <p>The heart of the festival featuring headlining acts</p>
-                        <div class="stage-features">
-                            <span class="feature">LED Screens</span>
-                            <span class="feature">Premium Sound</span>
-                            <span class="feature">VIP Area</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="stage-card" data-stage="underground" onclick="selectStage('underground')">
-                    <div class="stage-visual">
-                        <div class="stage-platform underground-stage">
-                            <div class="stage-lights underground">
-                                <div class="light neon"></div>
-                                <div class="light neon"></div>
-                            </div>
-                        </div>
-                        <div class="crowd-area intimate">
-                            <div class="crowd-section dance-floor"></div>
-                        </div>
-                    </div>
-                    <div class="stage-info">
-                        <h3>Underground Stage</h3>
-                        <p>Intimate setting for electronic and experimental music</p>
-                        <div class="stage-features">
-                            <span class="feature">Neon Lighting</span>
-                            <span class="feature">Bass System</span>
-                            <span class="feature">Dance Floor</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="stage-card" data-stage="acoustic" onclick="selectStage('acoustic')">
-                    <div class="stage-visual">
-                        <div class="stage-platform acoustic-stage">
-                            <div class="stage-decoration">
-                                <div class="tree"></div>
-                                <div class="tree"></div>
-                            </div>
-                        </div>
-                        <div class="crowd-area relaxed">
-                            <div class="crowd-section seated"></div>
-                        </div>
-                    </div>
-                    <div class="stage-info">
-                        <h3>Acoustic Corner</h3>
-                        <p>Peaceful area for acoustic performances and chill vibes</p>
-                        <div class="stage-features">
-                            <span class="feature">Natural Setting</span>
-                            <span class="feature">Seated Area</span>
-                            <span class="feature">Intimate</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="stage-details" id="stageDetails">
-                <div class="stage-lineup">
-                    <h4>Performing Artists</h4>
-                    <div class="artist-list" id="stageArtists">
-                        <!-- Dynamic content -->
-                    </div>
-                </div>
-                <div class="stage-schedule">
-                    <h4>Performance Schedule</h4>
-                    <div class="schedule-list" id="stageSchedule">
-                        <!-- Dynamic content -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -501,27 +301,5 @@
     <script src="ticketmaster-events-service.js"></script>
     <script src="script.js"></script>
     
-    <script>
-        // Force video to play
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.getElementById('bgVideo');
-            
-            if (video) {
-                // Try to play the video
-                video.play().catch(function(error) {
-                    console.log('Video autoplay failed:', error);
-                    // If autoplay fails, try again on user interaction
-                    document.addEventListener('click', function() {
-                        video.play().catch(e => console.log('Manual play failed:', e));
-                    }, { once: true });
-                });
-                
-                // Debug video loading
-                video.addEventListener('loadstart', () => console.log('Video loading started'));
-                video.addEventListener('canplay', () => console.log('Video can play'));
-                video.addEventListener('error', (e) => console.log('Video error:', e));
-            }
-        });
-    </script>
 </body>
 </html>
