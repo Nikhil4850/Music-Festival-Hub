@@ -1,0 +1,38 @@
+// Railway Deployment Helper Script
+console.log('Music Festival Hub - Railway Deployment Helper');
+console.log('==============================================');
+console.log('');
+console.log('Current Deployment Status:');
+console.log('- Frontend deployed to: https://music-festival-frontend-production.up.railway.app');
+console.log('- Backend not yet deployed');
+console.log('');
+
+console.log('Step-by-Step Deployment Guide:');
+console.log('');
+console.log('1. Backend Deployment Preparation:');
+console.log('   - Create a separate GitHub repository for your backend');
+console.log('   - Copy the contents of the "backend" directory to this new repository');
+console.log('   - Push to GitHub');
+console.log('');
+console.log('2. Deploy Backend to Railway:');
+console.log('   - Go to https://railway.app');
+console.log('   - Create a new project');
+console.log('   - Connect to your backend GitHub repository');
+console.log('   - Railway will auto-detect and deploy your Node.js app');
+console.log('');
+console.log('3. Configure Backend Environment Variables:');
+console.log('   In your Railway backend project dashboard, set these variables:');
+console.log('   - MONGODB_URI: Your MongoDB connection string');
+console.log('   - JWT_SECRET: A random secret string for JWT tokens');
+console.log('   - NODE_ENV: production');
+console.log('');
+console.log('4. After Backend Deployment:');
+console.log('   - Get your backend URL from Railway');
+console.log('   - Update frontend api-service.js to point to your backend');
+console.log('   - Update backend CORS configuration to include your frontend URL');
+console.log('   - Redeploy both services');
+console.log('');
+console.log('For detailed instructions, see: RAILWAY_DEPLOYMENT_STEPS.md');
+console.log('For backend deployment guide, see: RAILWAY_BACKEND_DEPLOYMENT.md');
+console.log('');
+console.log('Need help? Check the Railway documentation: https://docs.railway.app');

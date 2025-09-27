@@ -1,13 +1,28 @@
 // API Service for Music Festival Hub - MongoDB Backend Integration
 
+// Load deployment configuration
+let DEPLOYMENT_CONFIG = {
+  BACKEND_URL: 'https://UPDATE-THIS-WITH-YOUR-RAILWAY-BACKEND-URL/api'
+};
+
+// Try to load from deployment-config.js if it exists
+try {
+  // In a browser environment, we would load this differently
+  // For now, we'll use the default configuration above
+} catch (e) {
+  // Use default configuration
+}
+
 class ApiService {
     constructor() {
         // Detect if we're in production or development
         const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
         
         if (isProduction) {
-            // For production, use relative URLs (works with Render, Vercel, etc.)
-            this.baseUrl = '/api';
+            // For production with Railway backend
+            // Update this URL after deploying your backend to Railway
+            // Example: 'https://your-backend-project-production.up.railway.app/api'
+            this.baseUrl = DEPLOYMENT_CONFIG.BACKEND_URL;
             this.useMockData = false;
         } else {
             // For local development and network access

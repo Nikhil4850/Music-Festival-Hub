@@ -171,3 +171,65 @@ Anyone with the frontend URL can:
 5. All data will be stored in your MongoDB Atlas database
 
 This setup makes your application accessible to anyone on the internet!
+
+# Music Festival Hub Deployment Checklist
+
+## Backend Deployment to Railway
+
+### Pre-deployment Tasks
+- [ ] Create MongoDB Atlas account and cluster
+- [ ] Create database user with read/write permissions
+- [ ] Configure network access (IP whitelist)
+- [ ] Get MongoDB connection string
+- [ ] Generate JWT secret key
+- [ ] Create GitHub repository for backend
+- [ ] Push backend code to GitHub
+
+### Railway Deployment
+- [ ] Sign up for Railway account
+- [ ] Create new project
+- [ ] Connect to GitHub repository
+- [ ] Verify auto-detected Node.js build
+- [ ] Set environment variables:
+  - [ ] `MONGODB_URI`
+  - [ ] `JWT_SECRET`
+  - [ ] `NODE_ENV` = production
+- [ ] Deploy application
+- [ ] Note Railway-generated URL
+
+### Post-deployment Tasks
+- [ ] Update frontend API configuration with backend URL
+- [ ] Update backend CORS configuration with frontend URL
+- [ ] Test API endpoints
+- [ ] Test user registration and login
+- [ ] Test event creation and booking
+- [ ] Verify health check endpoints
+
+### Testing Checklist
+- [ ] Frontend loads correctly
+- [ ] User can register new account
+- [ ] User can log in
+- [ ] Events are displayed
+- [ ] User can book tickets
+- [ ] User profile works
+- [ ] All forms submit correctly
+- [ ] No CORS errors in browser console
+- [ ] No 404 errors for API calls
+
+### URLs
+- **Frontend**: https://music-festival-frontend-production.up.railway.app
+- **Backend**: (To be filled after deployment)
+- **MongoDB**: (Your MongoDB Atlas URL)
+
+### Environment Variables
+- **MONGODB_URI**: (Your MongoDB connection string)
+- **JWT_SECRET**: (Your generated secret key)
+- **NODE_ENV**: production
+
+### Troubleshooting
+- [ ] Check Railway logs for errors
+- [ ] Verify environment variables are set correctly
+- [ ] Check MongoDB connection
+- [ ] Verify CORS configuration
+- [ ] Test API endpoints directly
+- [ ] Check browser console for errors
