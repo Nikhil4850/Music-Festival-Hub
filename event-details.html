@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="event-details-styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/reviews.css">
+    <link rel="stylesheet" href="css/share.css">
 </head>
 <body>
     <!-- Header -->
@@ -62,14 +64,9 @@
             <section class="event-banner">
                 <div class="banner-slider">
                     <div class="banner-slide active">
-                        <img src="https://picsum.photos/1200/500?random=1" alt="Event Banner">
+                        <img src="" alt="Event Banner" id="eventMainImage">
                     </div>
-                    <div class="banner-slide">
-                        <img src="https://picsum.photos/1200/500?random=2" alt="Event Banner">
-                    </div>
-                    <div class="banner-slide">
-                        <img src="https://picsum.photos/1200/500?random=3" alt="Event Banner">
-                    </div>
+                    <!-- Additional slides can be added here if needed -->
                 </div>
                 <div class="slider-controls">
                     <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
@@ -85,7 +82,13 @@
             <!-- Event Info -->
             <section class="event-info">
                 <div class="event-header">
-                    <h1 class="event-title">Sunburn Festival 2025</h1>
+                    <div class="event-title-container">
+                        <h1 class="event-title">Sunburn Festival 2025</h1>
+                        <button id="event-share-button" class="share-button" aria-label="Share this event">
+                            <i class="fas fa-share-alt"></i>
+                            <span>Share</span>
+                        </button>
+                    </div>
                     <div class="event-meta">
                         <div class="meta-item">
                             <i class="fas fa-calendar-alt"></i>
@@ -341,6 +344,11 @@
         </aside>
     </div>
 
+    <!-- Reviews Section -->
+    <div id="reviews-section">
+        <!-- Reviews will be loaded here -->
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -391,79 +399,215 @@
     <script>
         // Load event data when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            const eventData = JSON.parse(localStorage.getItem('selectedEvent'));
-            
-            if (eventData) {
-                // Update page title
-                document.title = `${eventData.title} - Music Festival Hub`;
+            try {
+                // Get event data from localStorage
+                const eventData = JSON.parse(localStorage.getItem('selectedEvent') || '{}');
                 
-                // Update event banner image
-                const bannerSlides = document.querySelectorAll('.banner-slide img');
-                bannerSlides.forEach(img => {
-                    img.src = eventData.image;
-                    img.alt = eventData.title;
-                });
-                
-                // Update event title
-                document.querySelector('.event-title').textContent = eventData.title;
-                
-                // Update event meta information
-                const metaItems = document.querySelectorAll('.meta-item span');
-                if (metaItems[0]) metaItems[0].textContent = eventData.date;
-                if (metaItems[2]) metaItems[2].textContent = eventData.venue;
-                
-                // Update event tags
-                const tagsContainer = document.querySelector('.event-tags');
-                tagsContainer.innerHTML = `
-                    <span class="tag">${eventData.category}</span>
-                    <span class="tag">Live Music</span>
-                    <span class="tag">Premium Event</span>
-                `;
-                
-                // Update about section
-                const aboutSection = document.querySelector('.event-description p');
-                if (eventData.lineup) {
-                    aboutSection.textContent = `Experience an incredible ${eventData.category.toLowerCase()} featuring ${eventData.lineup.replace('Featuring: ', '')}. This premium event promises an unforgettable musical journey with world-class production and atmosphere.`;
-                } else {
-                    aboutSection.textContent = `Join us for an amazing ${eventData.category.toLowerCase()} experience at ${eventData.venue}. This event features top-tier artists and promises an unforgettable evening of live music.`;
+                if (eventData && Object.keys(eventData).length > 0) {
+                    // Update the main banner image if it exists
+                    if (eventData.image) {
+                        const bannerImages = document.querySelectorAll('.banner-slide img');
+                        if (bannerImages.length > 0) {
+                            // Set the first slide to the event image
+                            bannerImages[0].src = eventData.image;
+                            bannerImages[0].alt = eventData.title || 'Event Banner';
+                            
+                            // Hide additional slides if they exist
+                            for (let i = 1; i < bannerImages.length; i++) {
+                                bannerImages[i].parentElement.style.display = 'none';
+                            }
+                            
+                            // Update slider dots if they exist
+                            const dots = document.querySelectorAll('.slider-dots .dot');
+                            for (let i = 1; i < dots.length; i++) {
+                                dots[i].style.display = 'none';
+                            }
+                        }
+                    }
+                    
+                    // Update the event title if it exists
+                    if (eventData.title) {
+                        const eventTitle = document.querySelector('.event-title');
+                        if (eventTitle) eventTitle.textContent = eventData.title;
+                        
+                        // Also update the page title
+                        document.title = `${eventData.title} - Music Festival Hub`;
+                    }
+                    
+                    // Update other event details if they exist
+                    if (eventData.date) {
+                        const dateElement = document.querySelector('.event-meta .meta-item:first-child span');
+                        if (dateElement) dateElement.textContent = eventData.date;
+                    }
+                    
+                    if (eventData.venue) {
+                        const venueElement = document.querySelector('.event-meta .meta-item:nth-child(3) span');
+                        if (venueElement) venueElement.textContent = eventData.venue;
+                    }
+                    
+                    if (eventData.price) {
+                        const priceElement = document.querySelector('.booking-price .price');
+                        if (priceElement) priceElement.textContent = eventData.price;
+                    }
+                    
+                    // Update event tags if they exist
+                    const tagsContainer = document.querySelector('.event-tags');
+                    if (tagsContainer) {
+                        const category = eventData.category || 'Music';
+                        tagsContainer.innerHTML = `
+                            <span class="tag">${category}</span>
+                            <span class="tag">Live Music</span>
+                            <span class="tag">Premium Event</span>`;
+                    }
+                    
+                    // Update about section
+                    const aboutSection = document.querySelector('.event-description p');
+                    if (aboutSection) {
+                        const category = (eventData.category || 'music event').toLowerCase();
+                        if (eventData.lineup) {
+                            aboutSection.textContent = `Experience an incredible ${category} featuring ${eventData.lineup.replace('Featuring: ', '')}. This premium event promises an unforgettable musical journey with world-class production and atmosphere.`;
+                        } else {
+                            const venueText = eventData.venue ? ` at ${eventData.venue}` : '';
+                            aboutSection.textContent = `Join us for an amazing ${category} experience${venueText}. This event features top-tier artists and promises an unforgettable evening of live music.`;
+                        }
+                    }
+                    
+                    // Update booking details
+                    const bookingDetails = document.querySelectorAll('.booking-details .value');
+                    if (bookingDetails.length > 0) {
+                        if (eventData.date) {
+                            bookingDetails[0].textContent = eventData.date.includes('|') ? 
+                                eventData.date : 
+                                `${eventData.date} | 6:00 PM`;
+                        }
+                        if (bookingDetails[4] && eventData.category) {
+                            bookingDetails[4].textContent = eventData.category;
+                        }
+                    }
+                    
+                    // Update price display
+                    const priceDisplay = document.querySelector('.price');
+                    if (priceDisplay && eventData.price) {
+                        priceDisplay.textContent = eventData.price;
+                    }
+                    
+                    // Update gallery images with the same event image
+                    const galleryItems = document.querySelectorAll('.gallery-item img');
+                    if (galleryItems.length > 0 && eventData.image) {
+                        galleryItems.forEach((img, index) => {
+                            img.src = eventData.image;
+                            img.alt = `${eventData.title || 'Event'} Gallery ${index + 1}`;
+                        });
+                    }
                 }
                 
-                // Update booking details
-                const bookingDetails = document.querySelectorAll('.booking-details .value');
-                if (bookingDetails[0]) bookingDetails[0].textContent = `${eventData.date} | 6:00 PM`;
-                if (bookingDetails[4]) bookingDetails[4].textContent = eventData.category;
+                // Add user ID and event ID to body for review system
+                const userId = localStorage.getItem('userId') || '';
+                const eventId = (eventData && eventData.id) ? eventData.id : '';
                 
-                // Update price
-                document.querySelector('.price').textContent = eventData.price;
+                document.body.dataset.userId = userId;
+                document.body.dataset.eventId = eventId;
                 
-                // Update gallery images with the same event image
-                const galleryItems = document.querySelectorAll('.gallery-item img');
-                galleryItems.forEach((img, index) => {
-                    img.src = eventData.image;
-                    img.alt = `${eventData.title} Gallery ${index + 1}`;
-                });
+                // Initialize share button after event data is loaded
+                initializeShareButton();
+                
+            } catch (error) {
+                console.error('Error initializing event details:', error);
             }
         });
 
         // Function to proceed to payment
+        // Function to initialize share button with event data
+        function initializeShareButton() {
+            const eventShareButton = document.getElementById('event-share-button');
+            if (eventShareButton) {
+                // Wait for ShareButton class to be available
+                const initShare = () => {
+                    if (window.ShareButton) {
+                        const eventTitle = document.querySelector('.event-title')?.textContent || document.title;
+                        const eventData = JSON.parse(localStorage.getItem('selectedEvent') || '{}');
+                        
+                        // Create share button instance
+                        window.eventShareButtonInstance = new ShareButton('event-share-button', {
+                            title: eventTitle,
+                            text: `Check out this amazing event: ${eventTitle}`,
+                            url: window.location.href
+                        });
+                    } else {
+                        // Retry after a short delay if ShareButton class isn't loaded yet
+                        setTimeout(initShare, 100);
+                    }
+                };
+                initShare();
+            }
+        }
+
         function proceedToPayment() {
-            const eventData = JSON.parse(localStorage.getItem('selectedEvent'));
-            if (eventData) {
+            try {
+                const eventData = JSON.parse(localStorage.getItem('selectedEvent') || '{}');
+                if (!eventData || Object.keys(eventData).length === 0) {
+                    console.error('No event data found');
+                    return;
+                }
+                
                 // Store booking data for payment page
                 const bookingData = {
-                    eventTitle: eventData.title,
-                    eventDate: eventData.date,
-                    eventVenue: eventData.venue,
-                    eventImage: eventData.image,
-                    eventCategory: eventData.category,
-                    price: eventData.price,
+                    eventTitle: eventData.title || 'Unknown Event',
+                    eventDate: eventData.date || 'Date not specified',
+                    eventVenue: eventData.venue || 'Venue not specified',
+                    eventPrice: eventData.price || 'Price not available',
+                    eventImage: eventData.image || '',
                     quantity: 1,
                     totalAmount: parseInt(eventData.price.replace('₹', '').replace(',', ''))
                 };
-                localStorage.setItem('bookingData', JSON.stringify(bookingData));
-                window.location.href = 'payment.html';
+                
+                try {
+                    localStorage.setItem('bookingData', JSON.stringify(bookingData));
+                    window.location.href = 'payment.html';
+                } catch (error) {
+                    console.error('Error storing booking data:', error);
+                    alert('Failed to process booking. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error in proceedToPayment:', error);
+                alert('An error occurred while processing your request. Please try again.');
             }
         }
+    </script>
+    
+    <!-- Share Button JS -->
+    <script src="js/share.js"></script>
+    
+    <!-- Review System JS -->
+    <script src="js/reviews.js"></script>
+    
+    <script>
+        // Load reviews section after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('templates/reviews-section.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('reviews-section').innerHTML = html;
+                    // Initialize review system if the script is loaded
+                    if (window.ReviewSystem) {
+                        const eventId = document.body.dataset.eventId;
+                        const userId = document.body.dataset.userId;
+                        if (eventId) {
+                            window.reviewSystem = new ReviewSystem(eventId, userId);
+                            
+                            // Show review form if user is logged in
+                            const token = localStorage.getItem('token');
+                            const reviewFormContainer = document.getElementById('review-form-container');
+                            if (token && reviewFormContainer) {
+                                reviewFormContainer.style.display = 'block';
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading reviews section:', error);
+                });
+        });
     </script>
 </body>
 </html>

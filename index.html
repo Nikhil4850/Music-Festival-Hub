@@ -20,8 +20,35 @@
                 <a href="events.html" class="nav-link">Events</a>
                 <a href="bookings.html" class="nav-link">My Bookings</a>
                 <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
                 <div id="authSection">
                     <a href="login.html" class="nav-link login-btn">Login</a>
+                </div>
+                <div class="app-nav-dropdown">
+                    <button class="app-nav-btn" onclick="toggleAppDropdown()">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Our App</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        <div class="btn-glow"></div>
+                    </button>
+                    <div class="app-dropdown-menu" id="appDropdown">
+                        <div class="dropdown-content">
+                            <button class="dropdown-option preview-btn" onclick="openAppPreview()">
+                                <i class="fas fa-eye"></i>
+                                <div class="option-text">
+                                    <span class="option-title">Preview App</span>
+                                    <span class="option-desc">See live screenshots</span>
+                                </div>
+                            </button>
+                            <button class="dropdown-option download-btn" onclick="downloadAPK()">
+                                <i class="fab fa-android"></i>
+                                <div class="option-text">
+                                    <span class="option-title">Download APK</span>
+                                    <span class="option-desc">Get Android app</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="nav-toggle">
@@ -158,9 +185,12 @@
             <div class="lineup-grid">
                 <div class="artist-card dancing-card">
                     <div class="artist-image">
-                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arijit Singh">
+                        <video class="artist-video" muted loop preload="metadata" poster="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">
+                            <source src="arjit singh.mp4" type="video/mp4">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arijit Singh">
+                        </video>
                         <div class="image-overlay">
-                            <div class="play-button">
+                            <div class="play-button" onclick="toggleVideo(this)">
                                 <i class="fas fa-play"></i>
                             </div>
                         </div>
@@ -215,9 +245,12 @@
                 
                 <div class="artist-card dancing-card">
                     <div class="artist-image">
-                        <img src="https://www.koimoi.com/wp-content/new-galleries/2020/06/guru-randhawa-confirms-first-live-show-post-lockdown-001.jpg" alt="Guru Randhawa">
+                        <video class="artist-video" muted loop preload="metadata" poster="https://www.koimoi.com/wp-content/new-galleries/2020/06/guru-randhawa-confirms-first-live-show-post-lockdown-001.jpg">
+                            <source src="guru randhava.mp4" type="video/mp4">
+                            <img src="https://www.koimoi.com/wp-content/new-galleries/2020/06/guru-randhawa-confirms-first-live-show-post-lockdown-001.jpg" alt="Guru Randhawa">
+                        </video>
                         <div class="image-overlay">
-                            <div class="play-button">
+                            <div class="play-button" onclick="toggleVideo(this)">
                                 <i class="fas fa-play"></i>
                             </div>
                         </div>
@@ -243,7 +276,269 @@
         </div>
     </section>
 
+    <!-- Our App Section -->
+    <section class="app-section" id="app-section">
+        <div class="container">
+            <div class="section-header energetic-header">
+                <h2 class="section-title glow-text">📱 Get Our Mobile App 📱</h2>
+                <p class="section-subtitle pulse-text">Experience festivals on the go with our powerful Android app</p>
+                <div class="energy-bar">
+                    <div class="energy-fill"></div>
+                </div>
+            </div>
+            
+            <div class="app-showcase">
+                <div class="app-preview">
+                    <div class="phone-mockup">
+                        <div class="phone-frame">
+                            <div class="phone-screen">
+                                <div class="app-screenshot">
+                                    <div class="app-header">
+                                        <div class="status-bar">
+                                            <span class="time">9:41</span>
+                                            <div class="indicators">
+                                                <i class="fas fa-signal"></i>
+                                                <i class="fas fa-wifi"></i>
+                                                <i class="fas fa-battery-three-quarters"></i>
+                                            </div>
+                                        </div>
+                                        <div class="app-nav">
+                                            <h3>Music Festival Hub</h3>
+                                            <div class="nav-icons">
+                                                <i class="fas fa-search"></i>
+                                                <i class="fas fa-bell"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="app-content">
+                                        <div class="hero-banner">
+                                            <div class="banner-gradient"></div>
+                                            <h4>Welcome to Festivals</h4>
+                                            <p>Discover amazing events</p>
+                                        </div>
+                                        <div class="featured-events">
+                                            <h5>Featured Events</h5>
+                                            <div class="event-cards">
+                                                <div class="mini-event-card">
+                                                    <div class="event-image"></div>
+                                                    <div class="event-info">
+                                                        <span class="event-name">Summer Beats</span>
+                                                        <span class="event-date">Dec 25</span>
+                                                    </div>
+                                                </div>
+                                                <div class="mini-event-card">
+                                                    <div class="event-image"></div>
+                                                    <div class="event-info">
+                                                        <span class="event-name">Rock Fest</span>
+                                                        <span class="event-date">Jan 15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="app-categories">
+                                            <div class="category-grid">
+                                                <div class="category-item">🎵 Pop</div>
+                                                <div class="category-item">🎸 Rock</div>
+                                                <div class="category-item">🎤 Hip Hop</div>
+                                                <div class="category-item">🎹 Electronic</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="phone-button"></div>
+                        </div>
+                        <div class="phone-glow"></div>
+                    </div>
+                </div>
+                
+                <div class="app-features">
+                    <div class="app-feature-list">
+                        <div class="app-feature-item hover-lift">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>🚀 Native Android Experience</h4>
+                                <p>Built with modern Jetpack Compose for smooth, responsive performance</p>
+                            </div>
+                        </div>
+                        
+                        <div class="app-feature-item hover-lift">
+                            <div class="feature-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>🔄 Real-time Sync</h4>
+                                <p>Your bookings and preferences sync instantly across all devices</p>
+                            </div>
+                        </div>
+                        
+                        <div class="app-feature-item hover-lift">
+                            <div class="feature-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>🔔 Smart Notifications</h4>
+                                <p>Get notified about new events, ticket sales, and artist announcements</p>
+                            </div>
+                        </div>
+                        
+                        <div class="app-feature-item hover-lift">
+                            <div class="feature-icon">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>🎫 Digital Tickets</h4>
+                                <p>Store and access your tickets offline with QR code scanning</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="app-download">
+                        <h3>Download Now</h3>
+                        <p>Get the full festival experience in your pocket</p>
+                        <div class="download-buttons">
+                            <button class="download-btn android-btn pulse-button" onclick="downloadAPK()">
+                                <div class="btn-content">
+                                    <i class="fab fa-android"></i>
+                                    <div class="btn-text">
+                                        <span class="btn-label">Download for</span>
+                                        <span class="btn-platform">Android</span>
+                                    </div>
+                                </div>
+                                <div class="button-glow"></div>
+                            </button>
+                            
+                            <button class="download-btn ios-btn coming-soon" disabled>
+                                <div class="btn-content">
+                                    <i class="fab fa-apple"></i>
+                                    <div class="btn-text">
+                                        <span class="btn-label">Coming Soon</span>
+                                        <span class="btn-platform">iOS</span>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <div class="app-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">10K+</span>
+                                <span class="stat-label">Downloads</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">4.8★</span>
+                                <span class="stat-label">Rating</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Events</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- App Preview Modal -->
+    <div class="app-preview-modal" id="appPreviewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">📱 Music Festival Hub App Preview</h2>
+                <button class="modal-close" onclick="closeAppPreview()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="app-screens-showcase">
+                <div class="screen-preview">
+                    <div class="screen-mockup">
+                        <div class="screen-content screen-home">
+                            <div class="screen-header">🏠 Home Screen</div>
+                            <div class="screen-body">
+                                <div class="screen-card">
+                                    <div class="screen-card-title">🎵 Featured Events</div>
+                                    <div class="screen-card-desc">Discover trending festivals and concerts</div>
+                                </div>
+                                <div class="screen-card">
+                                    <div class="screen-card-title">🎤 Live Artists</div>
+                                    <div class="screen-card-desc">Arijit Singh, Shreya Ghoshal & more</div>
+                                </div>
+                                <div class="screen-card">
+                                    <div class="screen-card-title">🎫 Quick Booking</div>
+                                    <div class="screen-card-desc">Book tickets in just 2 taps</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screen-info">
+                        <h4>Home Dashboard</h4>
+                        <p>Beautiful home screen with featured events, artist lineup, and quick access to booking. Personalized recommendations based on your music taste.</p>
+                    </div>
+                </div>
+                
+                <div class="screen-preview">
+                    <div class="screen-mockup">
+                        <div class="screen-content screen-events">
+                            <div class="screen-header">🎪 Events Browser</div>
+                            <div class="screen-body">
+                                <div class="screen-card">
+                                    <div class="screen-card-title">🔍 Smart Search</div>
+                                    <div class="screen-card-desc">Find events by genre, location, date</div>
+                                </div>
+                                <div class="screen-card">
+                                    <div class="screen-card-title">📍 Location Based</div>
+                                    <div class="screen-card-desc">Events near you with GPS integration</div>
+                                </div>
+                                <div class="screen-card">
+                                    <div class="screen-card-title">💰 Price Filters</div>
+                                    <div class="screen-card-desc">Filter by budget and ticket types</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screen-info">
+                        <h4>Event Discovery</h4>
+                        <p>Advanced search and filtering system to find the perfect events. Browse by categories, dates, locations, and price ranges with intuitive filters.</p>
+                    </div>
+                </div>
+                
+                <div class="screen-preview">
+                    <div class="screen-mockup">
+                        <div class="screen-content screen-profile">
+                            <div class="screen-header">👤 User Profile</div>
+                            <div class="screen-body">
+                                <div class="screen-card">
+                                    <div class="screen-card-title">🎫 My Tickets</div>
+                                    <div class="screen-card-desc">Digital tickets with QR codes</div>
+                                </div>
+                                <div class="screen-card">
+                                    <div class="screen-card-title">❤️ Favorites</div>
+                                    <div class="screen-card-desc">Saved events and artists</div>
+                                </div>
+                                <div class="screen-card">
+                                    <div class="screen-card-title">🔔 Notifications</div>
+                                    <div class="screen-card-desc">Event reminders & updates</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screen-info">
+                        <h4>Personal Hub</h4>
+                        <p>Manage your bookings, view digital tickets, track favorite artists, and get personalized notifications about upcoming events and exclusive offers.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-download-btn" onclick="downloadAPK()">
+                    <i class="fab fa-android"></i>
+                    <span>Download Android APK</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

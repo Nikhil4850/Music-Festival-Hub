@@ -1216,21 +1216,249 @@ class FeatureCardEffects {
     }
 }
 
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    try {
-        // Initialize app state and navigation
-        const appState = new AppState();
-        
-        // Check for existing user session
-        const savedUser = localStorage.getItem('currentUser');
-        if (savedUser) {
-            try {
-                appState.user = JSON.parse(savedUser);
-            } catch (e) {
-                localStorage.removeItem('currentUser');
-            }
+// Download APK function
+function downloadAPK() {
+    // Create a temporary download link
+    const link = document.createElement('a');
+    link.href = 'android/app/build/outputs/apk/debug/app-debug.apk';
+    link.download = 'MusicFestivalHub.apk';
+    
+    // Show download notification
+    showNotification('📱 Downloading Music Festival Hub APK...', 'success');
+    
+    // Trigger download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Show installation instructions after a delay
+    setTimeout(() => {
+        showNotification('📋 Enable "Install from Unknown Sources" in your Android settings to install the app', 'info');
+    }, 2000);
+}
+
+// Show notification function
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-message">${message}</span>
+            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+    `;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 10000;
+        max-width: 400px;
+        animation: slideInRight 0.3s ease;
+    `;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
         }
+    }, 5000);
+}
+
+// Add CSS for notification animation
+const notificationStyles = document.createElement('style');
+notificationStyles.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    .notification-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+    }
+    
+    .notification-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background 0.2s;
+    }
+    
+    .notification-close:hover {
+        background: rgba(255,255,255,0.2);
+    }
+`;
+document.head.appendChild(notificationStyles);
+
+// App Navigation Dropdown Functions
+function toggleAppDropdown() {
+    const dropdown = document.getElementById('appDropdown');
+    const button = document.querySelector('.app-nav-btn');
+    
+    dropdown.classList.toggle('show');
+    button.classList.toggle('active');
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function closeDropdown(e) {
+        if (!e.target.closest('.app-nav-dropdown')) {
+            dropdown.classList.remove('show');
+            button.classList.remove('active');
+            document.removeEventListener('click', closeDropdown);
+        }
+    });
+}
+
+// Open App Preview Modal
+function openAppPreview() {
+    const modal = document.getElementById('appPreviewModal');
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    
+    // Close dropdown
+    const dropdown = document.getElementById('appDropdown');
+    const button = document.querySelector('.app-nav-btn');
+    dropdown.classList.remove('show');
+    button.classList.remove('active');
+    
+    // Add entrance animation to screens
+    setTimeout(() => {
+        const screens = document.querySelectorAll('.screen-preview');
+        screens.forEach((screen, index) => {
+            setTimeout(() => {
+                screen.style.transform = 'translateY(0)';
+                screen.style.opacity = '1';
+            }, index * 200);
+        });
+    }, 100);
+}
+
+// Close App Preview Modal
+function closeAppPreview() {
+    const modal = document.getElementById('appPreviewModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+    
+    // Reset screen animations
+    const screens = document.querySelectorAll('.screen-preview');
+    screens.forEach(screen => {
+        screen.style.transform = 'translateY(20px)';
+        screen.style.opacity = '0';
+    });
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('appPreviewModal');
+    if (e.target === modal) {
+        closeAppPreview();
+    }
+});
+
+// ESC key to close modal
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeAppPreview();
+    }
+});
+
+// Initialize screen animations
+document.addEventListener('DOMContentLoaded', function() {
+    const screens = document.querySelectorAll('.screen-preview');
+    screens.forEach(screen => {
+        screen.style.transform = 'translateY(20px)';
+        screen.style.opacity = '0';
+        screen.style.transition = 'all 0.6s ease';
+    });
+});
+
+// Toggle video playback for artist previews
+function toggleVideo(playButton) {
+    const video = playButton.closest('.artist-image').querySelector('.artist-video');
+    const icon = playButton.querySelector('i');
+    
+    if (video.paused) {
+        video.play();
+        icon.classList.remove('fa-play');
+        icon.classList.add('fa-pause');
+        playButton.classList.add('playing');
+    } else {
+        video.pause();
+        icon.classList.remove('fa-pause');
+        icon.classList.add('fa-play');
+        playButton.classList.remove('playing');
+    }
+}
+
+// Initialize artist video functionality
+function initializeArtistVideos() {
+    const artistVideos = document.querySelectorAll('.artist-video');
+    
+    artistVideos.forEach(video => {
+        // Pause video when it ends
+        video.addEventListener('ended', function() {
+            const playButton = this.closest('.artist-image').querySelector('.play-button');
+            const icon = playButton.querySelector('i');
+            
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
+            playButton.classList.remove('playing');
+            
+            // Reset video to beginning
+            this.currentTime = 0;
+        });
+        
+        // Handle video loading errors
+        video.addEventListener('error', function() {
+            console.log('Video failed to load:', this.src);
+            // Fallback to poster image
+            this.style.display = 'none';
+            const img = this.nextElementSibling;
+            if (img && img.tagName === 'IMG') {
+                img.style.display = 'block';
+            }
+        });
+    });
+}
+
+// Initialize the page when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        initializeAnimations();
+        initializeScrollEffects();
+        initializeParticles();
+        initializeCounters();
+        initializeHoverEffects();
+        initializeVideoBackground();
+        initializeEventCards();
+        initializeArtistVideos();
         
         const navigationManager = new NavigationManager(appState);
         window.navigationManager = navigationManager;

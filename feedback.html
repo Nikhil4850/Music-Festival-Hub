@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Music Festival Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="feedback-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Music Festival Hub</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="bookings.html" class="nav-link">My Bookings</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link active">Feedback</a>
+                <div id="authSection">
+                    <a href="login.html" class="nav-link login-btn">Login</a>
+                </div>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <video id="bgVideo" autoplay muted loop playsinline preload="auto">
+            <source src="festival-background.mp4" type="video/mp4">
+            <source src="https://assets.codepen.io/3364143/screen-record.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="feedback-main">
+        <div class="container">
+            <!-- Header Section -->
+            <div class="feedback-header">
+                <h1 class="page-title">
+                    <i class="fas fa-comments"></i>
+                    Share Your Experience
+                </h1>
+                <p class="page-subtitle">Help us make your festival experience even better! Your feedback matters to us.</p>
+            </div>
+
+            <div class="feedback-content">
+                <!-- Feedback Form Section -->
+                <section class="feedback-form-section">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h2><i class="fas fa-star"></i> Leave Your Feedback</h2>
+                            <p>Tell us about your experience with Music Festival Hub</p>
+                        </div>
+
+                        <form id="feedbackForm" class="feedback-form">
+                            <!-- User Info -->
+                            <div class="form-group">
+                                <label for="userName">
+                                    <i class="fas fa-user"></i>
+                                    Your Name
+                                </label>
+                                <input type="text" id="userName" name="userName" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userEmail">
+                                    <i class="fas fa-envelope"></i>
+                                    Email Address
+                                </label>
+                                <input type="email" id="userEmail" name="userEmail" required>
+                            </div>
+
+                            <!-- Rating Section -->
+                            <div class="form-group">
+                                <label class="rating-label">
+                                    <i class="fas fa-star"></i>
+                                    Overall Rating
+                                </label>
+                                <div class="star-rating" id="starRating">
+                                    <span class="star" data-rating="1"><i class="fas fa-star"></i></span>
+                                    <span class="star" data-rating="2"><i class="fas fa-star"></i></span>
+                                    <span class="star" data-rating="3"><i class="fas fa-star"></i></span>
+                                    <span class="star" data-rating="4"><i class="fas fa-star"></i></span>
+                                    <span class="star" data-rating="5"><i class="fas fa-star"></i></span>
+                                </div>
+                                <input type="hidden" id="rating" name="rating" value="0">
+                            </div>
+
+                            <!-- Category -->
+                            <div class="form-group">
+                                <label for="feedbackCategory">
+                                    <i class="fas fa-tags"></i>
+                                    Feedback Category
+                                </label>
+                                <select id="feedbackCategory" name="feedbackCategory" required>
+                                    <option value="">Select a category</option>
+                                    <option value="website">Website Experience</option>
+                                    <option value="events">Event Quality</option>
+                                    <option value="booking">Booking Process</option>
+                                    <option value="customer-service">Customer Service</option>
+                                    <option value="suggestions">Suggestions</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <!-- Event Attended -->
+                            <div class="form-group">
+                                <label for="eventAttended">
+                                    <i class="fas fa-music"></i>
+                                    Event Attended (Optional)
+                                </label>
+                                <input type="text" id="eventAttended" name="eventAttended" placeholder="Which event did you attend?">
+                            </div>
+
+                            <!-- Feedback Message -->
+                            <div class="form-group">
+                                <label for="feedbackMessage">
+                                    <i class="fas fa-comment-alt"></i>
+                                    Your Feedback
+                                </label>
+                                <textarea id="feedbackMessage" name="feedbackMessage" rows="6" required placeholder="Share your thoughts, suggestions, or experiences..."></textarea>
+                            </div>
+
+                            <!-- Would Recommend -->
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="wouldRecommend" name="wouldRecommend">
+                                    <span class="checkmark"></span>
+                                    I would recommend Music Festival Hub to others
+                                </label>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                Submit Feedback
+                                <div class="btn-glow"></div>
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Recent Feedback Section -->
+                <section class="recent-feedback-section">
+                    <div class="feedback-display">
+                        <div class="display-header">
+                            <h2><i class="fas fa-heart"></i> What Our Community Says</h2>
+                            <p>Recent feedback from our amazing festival-goers</p>
+                        </div>
+
+                        <div class="feedback-grid" id="feedbackGrid">
+                            <!-- Sample feedback items -->
+                            <div class="feedback-item">
+                                <div class="feedback-header">
+                                    <div class="user-info">
+                                        <div class="user-avatar">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="user-details">
+                                            <h4>Priya Sharma</h4>
+                                            <span class="feedback-date">2 days ago</span>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="feedback-content">
+                                    <span class="feedback-category">Website Experience</span>
+                                    <p>"Amazing website! The booking process was so smooth and the event information was very detailed. Can't wait for the next festival!"</p>
+                                </div>
+                            </div>
+
+                            <div class="feedback-item">
+                                <div class="feedback-header">
+                                    <div class="user-info">
+                                        <div class="user-avatar">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="user-details">
+                                            <h4>Rahul Mehta</h4>
+                                            <span class="feedback-date">5 days ago</span>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="feedback-content">
+                                    <span class="feedback-category">Event Quality</span>
+                                    <p>"The lineup was incredible! Arijit Singh's performance was mesmerizing. Great organization and sound quality."</p>
+                                </div>
+                            </div>
+
+                            <div class="feedback-item">
+                                <div class="feedback-header">
+                                    <div class="user-info">
+                                        <div class="user-avatar">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="user-details">
+                                            <h4>Sneha Patel</h4>
+                                            <span class="feedback-date">1 week ago</span>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="feedback-content">
+                                    <span class="feedback-category">Customer Service</span>
+                                    <p>"Outstanding customer support! They helped me resolve my booking issue within minutes. Highly recommended!"</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="load-more-container">
+                            <button class="load-more-btn" id="loadMoreBtn">
+                                <i class="fas fa-chevron-down"></i>
+                                Load More Feedback
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle"></i>
+                <h3>Thank You!</h3>
+            </div>
+            <div class="modal-body">
+                <p>Your feedback has been submitted successfully. We appreciate your input and will use it to improve our services.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section contact-section">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> info@musicfestivalhub.com</p>
+                        <p><i class="fas fa-phone"></i> +91 9766323998</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Music Street, Mumbai, Maharashtra 400001</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section social-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2025 Music Festival Hub. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth-manager.js"></script>
+    <script src="feedback-script.js"></script>
+</body>
+</html>

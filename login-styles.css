@@ -135,6 +135,7 @@
     padding: 2rem;
     position: relative;
     z-index: 1;
+    padding-top: 120px;
 }
 
 /* Auth Tabs */
@@ -177,6 +178,7 @@
     width: 100%;
     max-width: 400px;
     position: relative;
+    min-height: 600px;
 }
 
 .auth-form {
@@ -187,6 +189,13 @@
     padding: 2.5rem;
     display: none;
     animation: fadeInUp 0.5s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    max-height: 80vh;
 }
 
 .auth-form.active {
@@ -629,10 +638,18 @@
     .auth-container {
         padding: 1rem;
         padding-top: 100px;
+        justify-content: flex-start;
+    }
+
+    .auth-forms {
+        min-height: auto;
     }
 
     .auth-form {
         padding: 2rem 1.5rem;
+        position: relative;
+        max-height: none;
+        overflow-y: visible;
     }
 
     .auth-form h2 {
@@ -656,6 +673,9 @@
 
     .auth-form {
         padding: 1.5rem 1rem;
+        position: relative;
+        max-height: none;
+        overflow-y: visible;
     }
 }
 

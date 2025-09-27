@@ -712,18 +712,14 @@
                     
                     // Simple login simulation for deployed website
                     setTimeout(() => {
-                        // Reset button
-                        loginBtn.querySelector('span').textContent = originalText;
-                        loginBtn.disabled = false;
-                        
-                        // Show success message
-                        showSuccessMessage('Welcome back! Login successful.');
+                        // Check if user is admin
+                        const isAdmin = email === 'admin@gmail.com' && password === 'admin@123';
                         
                         // Store user data in localStorage
                         const userData = {
                             email: email,
-                            name: email.split('@')[0],
-                            userType: 'user', // Default to regular user for login
+                            name: isAdmin ? 'Admin' : email.split('@')[0],
+                            userType: isAdmin ? 'admin' : 'user',
                             isLoggedIn: true
                         };
                         localStorage.setItem('currentUser', JSON.stringify(userData));
@@ -740,11 +736,22 @@
                             newValue: JSON.stringify(userData)
                         }));
                         
-                        // Redirect to appropriate dashboard
+                        // Hide forms to prevent UI confusion
+                        document.querySelector('.auth-container').style.opacity = '0.5';
+                        document.querySelector('.auth-container').style.pointerEvents = 'none';
+                        
+                        // Show success message and redirect immediately
+                        showSuccessMessage('Welcome back! Login successful.');
+                        
+                        // Immediate redirect to prevent UI issues
                         setTimeout(() => {
-                            window.location.href = 'user-dashboard.html';
-                        }, 1500);
-                    }, 1200);
+                            if (isAdmin) {
+                                window.location.href = 'admin-dashboard.html';
+                            } else {
+                                window.location.href = 'user-dashboard.html';
+                            }
+                        }, 800);
+                    }, 800);
                 }
             });
             
@@ -806,17 +813,6 @@
                 
                 // Simple registration simulation for deployed website
                 setTimeout(() => {
-                    // Reset form
-                    registerForm.reset();
-                    
-                    // Reset button
-                    registerBtn.querySelector('span').textContent = originalText;
-                    registerBtn.disabled = false;
-                    registerBtn.classList.remove('loading');
-                    
-                    // Show success message
-                    showSuccessMessage(`Welcome ${name}! Your ${userType} account has been created successfully.`);
-                    
                     // Store user data in localStorage
                     const userData = {
                         email: email,
@@ -838,15 +834,22 @@
                         newValue: JSON.stringify(userData)
                     }));
                     
-                    // Redirect to appropriate dashboard based on user type
+                    // Hide forms to prevent UI confusion
+                    document.querySelector('.auth-container').style.opacity = '0.5';
+                    document.querySelector('.auth-container').style.pointerEvents = 'none';
+                    
+                    // Show success message and redirect immediately
+                    showSuccessMessage(`Welcome ${name}! Your ${userType} account has been created successfully.`);
+                    
+                    // Immediate redirect to prevent UI issues
                     setTimeout(() => {
                         if (userType === 'creator') {
                             window.location.href = 'creator-dashboard.html';
                         } else {
                             window.location.href = 'user-dashboard.html';
                         }
-                    }, 2000);
-                }, 1500);
+                    }, 1000);
+                }, 1000);
             });
             
             // Google Sign-In functionality
