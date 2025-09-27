@@ -65,7 +65,20 @@ A complete music festival booking platform with user authentication, event brows
 
 ## Deployment Options
 
-### Option 1: Render (Single Deployment)
+### Option 1: Vercel (Frontend Only)
+
+This repository includes a `vercel.json` file for easy deployment to Vercel:
+
+1. Fork this repository to your GitHub account
+2. Create a new Project on Vercel
+3. Connect your GitHub repository
+4. Vercel will automatically detect the configuration
+5. Add environment variables in the Vercel dashboard:
+   - `NODE_ENV`: production
+
+**Note**: Vercel is primarily for frontend hosting. For a full application, deploy your backend separately.
+
+### Option 2: Render (Full Application)
 
 This repository includes a `render.yaml` file for easy deployment to Render:
 
@@ -78,7 +91,7 @@ This repository includes a `render.yaml` file for easy deployment to Render:
    - `JWT_SECRET`: A strong secret key for JWT tokens
    - `NODE_ENV`: production
 
-### Option 2: Railway + Vercel (Recommended)
+### Option 3: Railway + Vercel (Recommended)
 
 For better performance and more control:
 
@@ -153,7 +166,26 @@ Frontend reads the API URL from `api-service.js`. In production, it uses relativ
    - Verify package.json files are correct
    - Check Render/Railway logs for specific error messages
 
+### Dependency Sync Issues (Fixed)
+
+If you see errors like:
+```
+npm error `npm ci` can only install packages when your package.json and package-lock.json are in sync
+```
+
+Run the fix script:
+```bash
+node fix-dependencies.js
+```
+
+This will synchronize your package files and resolve deployment issues.
+
 ### Checking Logs
+
+For Vercel:
+1. Go to your Vercel dashboard
+2. Click on your project
+3. View the "Logs" tab
 
 For Render:
 1. Go to your Render dashboard
@@ -170,8 +202,8 @@ For Railway:
 If you're having issues with deployment:
 
 1. Check the detailed deployment guides:
+   - [VERCEL_DEPLOYMENT_GUIDE.md](VERCEL_DEPLOYMENT_GUIDE.md)
    - [RAILWAY_DEPLOYMENT.md](RAILWAY_DEPLOYMENT.md)
-   - [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)
    - [DEPLOYMENT_INSTRUCTIONS.md](DEPLOYMENT_INSTRUCTIONS.md)
 
 2. Refer to the troubleshooting checklist:
