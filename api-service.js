@@ -2,7 +2,7 @@
 
 // Load deployment configuration
 let DEPLOYMENT_CONFIG = {
-  BACKEND_URL: 'https://UPDATE-THIS-WITH-YOUR-RAILWAY-BACKEND-URL/api'
+  BACKEND_URL: 'http://localhost:5000/api'
 };
 
 // Try to load from deployment-config.js if it exists
