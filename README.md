@@ -1,260 +1,181 @@
 # Music Festival Hub
 
-A complete music festival booking platform with React frontend and Node.js/Express backend connected to MongoDB Atlas.
+A complete music festival booking platform with user authentication, event browsing, and ticket booking functionality.
 
 ## Project Structure
 
 ```
-music-festival-hub/
-├── backend/              # Node.js/Express API server
-│   ├── models/           # Mongoose models
+├── backend/              # Node.js API server
 │   ├── routes/           # API routes
-│   ├── middleware/       # Authentication middleware
-│   ├── server.js         # Main server file
-│   └── .env              # Environment variables
-├── src/                  # React components (if using React)
-├── public/               # Static assets
-├── css/                  # Stylesheets
-├── js/                   # JavaScript files
-├── templates/            # HTML templates
+│   ├── controllers/      # Route controllers
+│   ├── models/           # Database models
+│   ├── middleware/       # Custom middleware
+│   ├── config/           # Configuration files
+│   └── server.js         # Backend entry point
+├── assets/               # Static assets (images, CSS, JS)
 ├── index.html            # Main HTML file
+├── register.html         # User registration page
+├── login.html            # User login page
+├── events.html           # Events listing page
+├── bookings.html         # User bookings page
+├── profile.html          # User profile page
+├── feedback.html         # Feedback page
+├── about.html            # About page
+├── club.html             # Club page
+├── api-service.js        # Frontend API service
 ├── server.js             # Frontend server
-└── package.json          # Frontend dependencies
+├── package.json          # Root package.json
+└── render.yaml           # Render deployment configuration
 ```
 
-## Features
+## Local Development Setup
 
-- **User Authentication**: Registration, login, and session management
-- **Event Management**: Browse, search, and view music festival events
-- **Booking System**: Book tickets for events with multiple payment options
-- **User Profiles**: Manage personal information and booking history
-- **Reviews & Feedback**: Rate events and provide feedback
-- **Admin Dashboard**: Manage events, users, and bookings
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
-
-## Prerequisites
-
-- Node.js (v14 or higher)
-- MongoDB Atlas account
-- npm or yarn
-
-## Setup Instructions
-
-### 1. MongoDB Atlas Setup
-
-1. Create a MongoDB Atlas account at [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
-2. Create a new cluster (M0 Free tier is sufficient for development)
-3. Configure database access:
-   - Create a database user with read/write permissions
-   - Whitelist your IP address (or allow access from anywhere for development)
-4. Get your connection string from the Atlas dashboard
-
-### 2. Backend Setup
-
-1. Navigate to the backend directory:
+1. **Install Dependencies**
    ```bash
-   cd backend
-   ```
-
-2. Install dependencies:
-   ```bash
+   # Install frontend dependencies
    npm install
+   
+   # Install backend dependencies
+   cd backend
+   npm install
+   cd ..
    ```
 
-3. Configure environment variables:
-   - Copy `.env.example` to `.env`:
-     ```bash
-     cp .env.example .env
-     ```
-   - Update the [MONGODB_URI](file:///C:/Users/Nikhil/Videos/f/web%20-%20Copy/backend/.env#L3-L3) with your MongoDB Atlas connection string
-   - Update `JWT_SECRET` with a strong secret key
+2. **Configure Environment Variables**
+   Create a `.env` file in the `backend/` directory:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   NODE_ENV=development
+   ```
 
-4. Start the backend server:
+3. **Run Development Servers**
    ```bash
-   # Development mode with auto-reload
+   # Run both frontend and backend
    npm run dev
    
-   # Or production mode
-   npm start
+   # Or run separately
+   npm run dev:frontend  # Frontend server on port 3001
+   npm run dev:backend   # Backend server on port 5000
    ```
 
-   The backend API will be available at `http://localhost:5000/api`
+4. **Access the Application**
+   - Frontend: http://localhost:3001
+   - Backend API: http://localhost:5000/api
 
-### 3. Frontend Setup
+## Deployment Options
 
-1. From the root directory, install dependencies:
-   ```bash
-   npm install
-   ```
+### Option 1: Render (Single Deployment)
 
-2. Start the frontend server:
-   ```bash
-   node server.js
-   ```
+This repository includes a `render.yaml` file for easy deployment to Render:
 
-   The frontend will be available at `http://localhost:3001`
+1. Fork this repository to your GitHub account
+2. Create a new Web Service on Render
+3. Connect your GitHub repository
+4. Render will automatically detect the configuration
+5. Add environment variables in the Render dashboard:
+   - `MONGODB_URI`: Your MongoDB Atlas connection string
+   - `JWT_SECRET`: A strong secret key for JWT tokens
+   - `NODE_ENV`: production
+
+### Option 2: Railway + Vercel (Recommended)
+
+For better performance and more control:
+
+1. **Backend Deployment (Railway)**
+   - Deploy the `backend/` directory to Railway
+   - Set environment variables in Railway dashboard
+
+2. **Frontend Deployment (Vercel)**
+   - Deploy the root directory to Vercel
+   - Update `api-service.js` with your Railway backend URL
+
+## Environment Variables
+
+### Backend (.env in backend/ directory)
+```env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database
+JWT_SECRET=your_super_secret_jwt_key
+NODE_ENV=production
+PORT=5000
+```
+
+### Frontend
+Frontend reads the API URL from `api-service.js`. In production, it uses relative paths.
 
 ## API Endpoints
 
 ### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-- `GET /api/auth/me` - Get current user
-- `POST /api/auth/logout` - Logout user
+- `POST /api/v1/auth/register` - User registration
+- `POST /api/v1/auth/login` - User login
+- `GET /api/v1/auth/me` - Get current user
 
 ### Users
-- `GET /api/users/profile` - Get user profile
-- `PUT /api/users/profile` - Update user profile
-- `GET /api/users/creators` - Get all creators
+- `GET /api/v1/users/profile` - Get user profile
+- `PUT /api/v1/users/profile` - Update user profile
+- `PUT /api/v1/users/avatar` - Update user avatar
+- `PUT /api/v1/users/password` - Update user password
+- `DELETE /api/v1/users/account` - Delete user account
 
 ### Events
-- `GET /api/events` - Get all events (with filtering)
-- `GET /api/events/upcoming` - Get upcoming events
-- `GET /api/events/:id` - Get single event
-- `POST /api/events` - Create event (Creator only)
-- `PUT /api/events/:id` - Update event (Creator only)
-- `DELETE /api/events/:id` - Delete event (Creator only)
+- `GET /api/v1/events` - Get all events
+- `GET /api/v1/events/upcoming` - Get upcoming events
+- `GET /api/v1/events/:id` - Get event details
+- `POST /api/v1/events` - Create event (creator only)
+- `PUT /api/v1/events/:id` - Update event (creator only)
+- `DELETE /api/v1/events/:id` - Delete event (creator only)
 
 ### Bookings
-- `POST /api/bookings` - Create booking
-- `GET /api/bookings` - Get user bookings
-- `GET /api/bookings/:id` - Get single booking
-- `PUT /api/bookings/:id/cancel` - Cancel booking
-- `GET /api/bookings/event/:eventId` - Get event bookings (Organizer only)
-
-## Database Schema
-
-### User Model
-- Name, email, password (hashed)
-- User type (normal/creator)
-- Preferences and profile settings
-- Authentication and activity tracking
-
-### Event Model
-- Event details (title, description, date, venue)
-- Pricing and ticket information
-- Artist and organizer information
-- Reviews and ratings system
-
-### Booking Model
-- User and event references
-- Ticket details and payment information
-- Booking status and cancellation handling
-- Generated ticket IDs and QR codes
-
-## Development
-
-### Running the Application
-
-1. Start the backend server:
-   ```bash
-   # Windows
-   start-backend.bat
-   
-   # Or manually
-   cd backend && npm run dev
-   ```
-
-2. Start the frontend server:
-   ```bash
-   # Windows
-   start-server.bat
-   
-   # Or manually
-   node server.js
-   ```
-
-### Environment Variables
-
-Create a `.env` file in the backend directory with the following variables:
-
-```env
-# MongoDB Configuration
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database?retryWrites=true&w=majority
-
-# Server Configuration
-PORT=5000
-NODE_ENV=development
-
-# JWT Configuration
-JWT_SECRET=your-super-secret-jwt-key
-JWT_EXPIRE=7d
-
-# Security
-BCRYPT_ROUNDS=12
-
-# CORS Origins
-CORS_ORIGINS=http://localhost:3000,http://localhost:3001
-```
-
-## Deployment
-
-### Backend Deployment
-
-1. Set `NODE_ENV=production`
-2. Use a strong JWT secret
-3. Configure MongoDB Atlas connection string
-4. Set up proper CORS origins
-5. Deploy to a cloud platform (Heroku, AWS, DigitalOcean, etc.)
-
-### Frontend Deployment
-
-1. Build the project for production:
-   ```bash
-   npm run build
-   ```
-2. Deploy the build folder to a static hosting service
-
-## Testing
-
-Use tools like Postman or curl to test the API endpoints:
-
-```bash
-# Register user
-curl -X POST http://localhost:5000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"name":"John Doe","email":"john@example.com","password":"password123","userType":"normal"}'
-
-# Login
-curl -X POST http://localhost:5000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"john@example.com","password":"password123"}'
-```
+- `POST /api/v1/bookings` - Create booking
+- `GET /api/v1/bookings` - Get user bookings
+- `GET /api/v1/bookings/:id` - Get booking details
+- `PUT /api/v1/bookings/:id/cancel` - Cancel booking
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Port already in use**: 
-   - Kill the process using the port or change the PORT in `.env`
-   - On Windows: `taskkill /F /PID <port_process_id>`
-   - On macOS/Linux: `kill -9 $(lsof -t -i:<port>)`
-
-2. **MongoDB connection error**:
-   - Check your MongoDB Atlas connection string
-   - Ensure your IP is whitelisted in Atlas
+1. **MongoDB Connection Error**
+   - Check your `MONGODB_URI` environment variable
+   - Ensure your IP is whitelisted in MongoDB Atlas
    - Verify database user credentials
 
-3. **JWT token issues**:
-   - Ensure `JWT_SECRET` is set in `.env`
-   - Check that tokens are being sent with API requests
+2. **CORS Errors**
+   - Check CORS configuration in `backend/server.js`
+   - Ensure frontend domain is in the allowed origins list
 
-### Getting Help
+3. **Port Conflicts**
+   - Change the PORT environment variable
+   - Ensure no other services are using the same ports
 
-If you encounter issues:
-1. Check the console for error messages
-2. Verify all environment variables are set correctly
-3. Ensure MongoDB Atlas cluster is running
-4. Check that all dependencies are installed
+4. **Build Failures**
+   - Check that all dependencies are installed
+   - Verify package.json files are correct
+   - Check Render/Railway logs for specific error messages
 
-## Contributing
+### Checking Logs
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a pull request
+For Render:
+1. Go to your Render dashboard
+2. Click on your service
+3. View the "Logs" tab
 
-## License
+For Railway:
+1. Go to your Railway dashboard
+2. Click on your project
+3. View the "Logs" tab
 
-This project is licensed under the MIT License.
+## Support
+
+If you're having issues with deployment:
+
+1. Check the detailed deployment guides:
+   - [RAILWAY_DEPLOYMENT.md](RAILWAY_DEPLOYMENT.md)
+   - [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)
+   - [DEPLOYMENT_INSTRUCTIONS.md](DEPLOYMENT_INSTRUCTIONS.md)
+
+2. Refer to the troubleshooting checklist:
+   - [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)
+
+3. For Render-specific issues:
+   - [RENDER_ISSUES_AND_SOLUTIONS.md](RENDER_ISSUES_AND_SOLUTIONS.md)

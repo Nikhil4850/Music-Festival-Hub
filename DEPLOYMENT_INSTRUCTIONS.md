@@ -1,57 +1,61 @@
-[# Deployment Instructions for Music Festival Hub
+# Deployment Instructions for Music Festival Hub
 
 ## Overview
 
-To make your Music Festival Hub application accessible to users from any device, you need to deploy it to a hosting platform. This document provides instructions for deploying to several popular platforms.
+To make your Music Festival Hub application accessible to users from any device, you need to deploy it to hosting platforms. Since Render is not supporting your application, this document provides alternative deployment options.
 
 ## Prerequisites
 
 1. Create accounts on the hosting platforms you choose:
-   - [Render](https://render.com) (Recommended for beginners)
-   - [Heroku](https://heroku.com) (Alternative option)
-   - [Vercel](https://vercel.com) (For frontend only)
-   - [Netlify](https://netlify.com) (For frontend only)
+   - [Railway](https://railway.app) (Recommended for backend)
+   - [Vercel](https://vercel.com) (Recommended for frontend)
+   - [MongoDB Atlas](https://cloud.mongodb.com) (For database)
 
 2. Ensure your MongoDB Atlas database is configured to accept connections from anywhere (0.0.0.0/0)
 
-## Option 1: Deploy to Render (Recommended)
+## Option 1: Deploy to Railway + Vercel (Recommended)
 
-### Backend Deployment
+### Backend Deployment to Railway
 
-1. Create a new Web Service on Render:
-   - Go to your Render dashboard
-   - Click "New +" and select "Web Service"
+1. Create a new account on Railway:
+   - Go to [railway.app](https://railway.app)
+   - Sign up with your GitHub account
+
+2. Deploy your backend:
+   - Click "New Project" in your Railway dashboard
+   - Select "Deploy from GitHub repo"
    - Connect your GitHub repository or upload your code
-   - Set the following configuration:
-     - Name: music-festival-backend
-     - Environment: Node
-     - Build command: `npm install`
-     - Start command: `npm start`
-     - Branch: main (or master)
+   - Select the backend folder
+   - Railway will automatically detect it's a Node.js project
 
-2. Add Environment Variables:
-   - `NODE_ENV`: production
-   - `MONGODB_URI`: Your MongoDB Atlas connection string
-   - `JWT_SECRET`: A strong secret key
-   - `PORT`: 5000
+3. Configure Environment Variables in Railway:
+   - Go to your project → Settings → Variables
+   - Add these variables:
+     - `MONGODB_URI`: Your MongoDB Atlas connection string
+     - `JWT_SECRET`: A strong secret key (generate one)
+     - `NODE_ENV`: production
+     - `PORT`: 5000
+
+4. Deploy and wait for the build to complete
+   - Railway will provide a URL like: `https://your-app.up.railway.app`
+
+### Frontend Deployment to Vercel
+
+1. Create a new account on Vercel:
+   - Go to [vercel.com](https://vercel.com)
+   - Sign up with your GitHub account
+
+2. Deploy your frontend:
+   - Click "New Project"
+   - Import your GitHub repository or upload your code
+   - Configure:
+     - Framework Preset: Other
+     - Root Directory: / (root directory)
+     - Build command: (leave empty for static sites)
+     - Output Directory: / (root directory)
 
 3. Deploy and wait for the build to complete
-
-### Frontend Deployment
-
-1. Create a new Static Site on Render:
-   - Go to your Render dashboard
-   - Click "New +" and select "Static Site"
-   - Connect your GitHub repository or upload your code
-   - Set the following configuration:
-     - Name: music-festival-frontend
-     - Build command: Leave empty (not needed for static sites)
-     - Publish directory: ./
-
-2. Add Environment Variables (if needed):
-   - `NODE_ENV`: production
-
-3. Deploy and wait for the build to complete
+   - Vercel will provide a URL like: `https://your-app.vercel.app`
 
 ## Option 2: Deploy Backend to Heroku
 
@@ -88,28 +92,7 @@ To make your Music Festival Hub application accessible to users from any device,
    git push heroku master
    ```
 
-## Option 3: Deploy Frontend to Vercel
-
-### Frontend Deployment
-
-1. Install Vercel CLI:
-   ```bash
-   npm install -g vercel
-   ```
-
-2. Login to Vercel:
-   ```bash
-   vercel login
-   ```
-
-3. Deploy:
-   ```bash
-   vercel
-   ```
-
-4. Follow the prompts to configure your project
-
-## Option 4: Deploy Frontend to Netlify
+## Option 3: Deploy Frontend to Netlify
 
 ### Frontend Deployment
 
@@ -144,25 +127,24 @@ After deploying, you'll need to update your frontend to use the deployed backend
 Find this section in your [api-service.js](file:///C:/Users/Nikhil/Videos/f/web%20-%20Copy/api-service.js) file:
 
 ```javascript
-constructor() {
-    // Detect if we're in production or development
-    const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-    
-    if (isProduction) {
-        // For production, use your deployed backend URL
-        this.baseUrl = 'https://your-deployed-backend-url.com/api';
-        this.useMockData = false;
-    } else {
-        // For local development
+if (isProduction) {
+    // For production, use your deployed backend URL
+    this.baseUrl = 'https://your-deployed-backend-url.com/api';
+    this.useMockData = false;
+} else {
+    // For local development and network access
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        // Local development
         this.baseUrl = 'http://localhost:5000/api';
-        this.useMockData = false;
+    } else {
+        // Network access - use the same hostname as the frontend but with backend port
+        this.baseUrl = `http://${window.location.hostname}:5000/api`;
     }
-    
-    this.token = this.getToken();
+    this.useMockData = false;
 }
 ```
 
-Replace `'https://your-deployed-backend-url.com/api'` with your actual deployed backend URL.
+Replace `'https://your-deployed-backend-url.com/api'` with your actual deployed backend URL from Railway or Heroku.
 
 ## Testing Your Deployment
 
@@ -178,7 +160,14 @@ If you encounter CORS errors after deployment, update your backend CORS configur
 
 ```javascript
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:8000', 'http://127.0.0.1:8000', 'https://your-frontend-domain.com'],
+  origin: [
+    'http://localhost:3000', 
+    'http://localhost:3001', 
+    'http://localhost:8000', 
+    'http://127.0.0.1:8000',
+    'https://your-frontend-domain.vercel.app',  // Add your Vercel URL
+    'https://your-frontend-domain.netlify.app'  // Add your Netlify URL (if using)
+  ],
   credentials: true
 }));
 ```
@@ -191,17 +180,17 @@ Ensure all required environment variables are set in your hosting platform:
 
 ## Cost Considerations
 
-1. **Render**: Free tier available with some limitations
-2. **Heroku**: Free tier with sleep after inactivity
-3. **Vercel**: Generous free tier for frontend hosting
+1. **Railway**: Free tier available with some limitations
+2. **Vercel**: Generous free tier for frontend hosting
+3. **Heroku**: Free tier with sleep after inactivity
 4. **Netlify**: Free tier with generous limits
 5. **MongoDB Atlas**: Free M0 tier sufficient for development
 
 ## Next Steps
 
-1. Deploy your backend first
+1. Deploy your backend first (Railway or Heroku)
 2. Update the frontend API URL to point to your deployed backend
-3. Deploy your frontend
+3. Deploy your frontend (Vercel or Netlify)
 4. Test the complete application
 5. Share the frontend URL with others
 

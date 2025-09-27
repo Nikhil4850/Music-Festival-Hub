@@ -9,6 +9,15 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.static(path.join(__dirname)));
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'Music Festival Hub Frontend is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Serve index.html for the root route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -60,4 +69,5 @@ app.get(/^\/(?!api).*$/, (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Frontend server is running on http://localhost:${PORT}`);
   console.log(`Accessible on network at http://YOUR_NETWORK_IP:${PORT}`);
+  console.log(`Health check endpoint: http://localhost:${PORT}/health`);
 });

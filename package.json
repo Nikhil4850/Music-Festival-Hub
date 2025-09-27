@@ -1,14 +1,11 @@
 {
   "name": "music-festival-hub",
   "version": "1.0.0",
-  "description": "Music Festival Hub with React and React Router",
-  "main": "index.js",
-  "homepage": ".",
+  "description": "Music Festival Hub with Express and MongoDB",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "node server.js",
+    "build": "node build.js",
     "dev:frontend": "node server.js",
     "dev:backend": "cd backend && npm run dev",
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\""
@@ -16,22 +13,16 @@
   "dependencies": {
     "concurrently": "^7.6.0",
     "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.0",
-    "react-scripts": "5.0.1"
+    "express": "^4.18.2",
+    "path": "^0.12.7"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "keywords": [
+    "music",
+    "festival",
+    "events",
+    "express",
+    "html"
+  ],
+  "author": "Music Festival Hub",
+  "license": "MIT"
 }

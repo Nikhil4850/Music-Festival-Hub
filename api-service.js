@@ -6,7 +6,7 @@ class ApiService {
         const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
         
         if (isProduction) {
-            // For production, use relative URLs
+            // For production, use relative URLs (works with Render, Vercel, etc.)
             this.baseUrl = '/api';
             this.useMockData = false;
         } else {
