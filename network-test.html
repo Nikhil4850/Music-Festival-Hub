@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Access Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .test-result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .network-info {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .url-box {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 Network Access Test</h1>
+        
+        <div class="info-box">
+            <h3>ℹ️ Network Information</h3>
+            <p>Your computer's IP addresses:</p>
+            <ul>
+                <li><strong>Ethernet:</strong> 192.168.56.1</li>
+                <li><strong>Wi-Fi:</strong> 10.53.91.59</li>
+            </ul>
+            <p>Other devices on the same network can access your application using these addresses.</p>
+        </div>
+        
+        <div class="network-info">
+            <h3>📱 Access from Other Devices</h3>
+            <p>To access your application from other devices on the same network:</p>
+            <ol>
+                <li>Make sure all devices are connected to the same Wi-Fi network</li>
+                <li>Open a browser on the other device</li>
+                <li>Enter one of these URLs:</li>
+            </ol>
+            <div class="url-box">
+                http://10.53.91.59:3001
+            </div>
+            <p><small>Note: Use the IP address that matches your current network connection</small></p>
+        </div>
+        
+        <div style="text-align: center;">
+            <button onclick="testBackendConnection()">Test Backend Connection</button>
+            <button onclick="testFrontendConnection()">Test Frontend Connection</button>
+            <button onclick="testFullApplication()">Test Full Application</button>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function testBackendConnection() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing backend connection...</p>';
+            
+            try {
+                const response = await fetch('http://10.53.91.59:5000/api/health');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="test-result success">
+                            <h3>✅ Backend Connection Successful!</h3>
+                            <p><strong>Status:</strong> ${data.status}</p>
+                            <p><strong>Message:</strong> ${data.message}</p>
+                            <p><strong>Database:</strong> ${data.database}</p>
+                            <p><strong>Timestamp:</strong> ${data.timestamp}</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="test-result error">
+                            <h3>❌ Backend Connection Failed</h3>
+                            <p><strong>Error:</strong> ${data.message || 'Unknown error'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="test-result error">
+                        <h3>❌ Backend Connection Failed</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p>This could be due to:</p>
+                        <ul>
+                            <li>Backend server not running</li>
+                            <li>Firewall blocking the connection</li>
+                            <li>Network connectivity issues</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+        
+        async function testFrontendConnection() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing frontend connection...</p>';
+            
+            try {
+                const response = await fetch('http://10.53.91.59:3001/health');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="test-result success">
+                            <h3>✅ Frontend Connection Successful!</h3>
+                            <p><strong>Status:</strong> ${data.status}</p>
+                            <p><strong>Message:</strong> ${data.message}</p>
+                            <p><strong>Timestamp:</strong> ${data.timestamp}</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="test-result error">
+                            <h3>❌ Frontend Connection Failed</h3>
+                            <p><strong>Error:</strong> ${data.message || 'Unknown error'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="test-result error">
+                        <h3>❌ Frontend Connection Failed</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p>This could be due to:</p>
+                        <ul>
+                            <li>Frontend server not running</li>
+                            <li>Firewall blocking the connection</li>
+                            <li>Network connectivity issues</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+        
+        async function testFullApplication() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing full application connection...</p>';
+            
+            try {
+                // Test backend
+                const backendResponse = await fetch('http://10.53.91.59:5000/api/health');
+                const backendData = await backendResponse.json();
+                
+                // Test frontend
+                const frontendResponse = await fetch('http://10.53.91.59:3001/health');
+                const frontendData = await frontendResponse.json();
+                
+                if (backendResponse.ok && frontendResponse.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="test-result success">
+                            <h3>✅ Full Application Connection Successful!</h3>
+                            <p>Both frontend and backend servers are accessible from the network.</p>
+                            <h4>Backend Status:</h4>
+                            <p><strong>Status:</strong> ${backendData.status}</p>
+                            <p><strong>Database:</strong> ${backendData.database}</p>
+                            <h4>Frontend Status:</h4>
+                            <p><strong>Status:</strong> ${frontendData.status}</p>
+                            <div class="info-box">
+                                <h4>📱 Access Instructions</h4>
+                                <p>Other devices can now access your application at:</p>
+                                <div class="url-box">
+                                    http://10.53.91.59:3001
+                                </div>
+                                <p>Make sure all devices are on the same network!</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="test-result error">
+                            <h3>❌ Full Application Connection Failed</h3>
+                            <p>One or both servers are not accessible:</p>
+                            <p><strong>Backend:</strong> ${backendResponse.ok ? '✅ OK' : '❌ Failed'}</p>
+                            <p><strong>Frontend:</strong> ${frontendResponse.ok ? '✅ OK' : '❌ Failed'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="test-result error">
+                        <h3>❌ Full Application Connection Failed</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

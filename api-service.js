@@ -2,7 +2,7 @@
 
 // Load deployment configuration
 let DEPLOYMENT_CONFIG = {
-  BACKEND_URL: 'http://localhost:5000/api'
+  BACKEND_URL: 'http://10.53.91.59:5000/api'
 };
 
 // Try to load from deployment-config.js if it exists
@@ -16,7 +16,10 @@ try {
 class ApiService {
     constructor() {
         // Detect if we're in production or development
-        const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+        const isProduction = window.location.hostname !== 'localhost' && 
+                            window.location.hostname !== '127.0.0.1' &&
+                            window.location.hostname !== '10.53.91.59' &&
+                            window.location.hostname !== '192.168.56.1';
         
         if (isProduction) {
             // For production with Railway backend

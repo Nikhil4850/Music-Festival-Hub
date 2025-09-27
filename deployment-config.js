@@ -6,7 +6,7 @@ const DEPLOYMENT_CONFIG = {
   FRONTEND_URL: 'https://music-festival-frontend-production.up.railway.app',
   
   // Backend URL (to be updated after backend deployment)
-  BACKEND_URL: 'https://UPDATE-THIS-WITH-YOUR-RAILWAY-BACKEND-URL/api',
+  BACKEND_URL: 'http://10.53.91.59:5000/api',
   
   // MongoDB Configuration (for backend environment variables)
   MONGODB_URI: 'mongodb+srv://username:password@cluster.mongodb.net/database',
