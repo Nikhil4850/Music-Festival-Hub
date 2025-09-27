@@ -1,6 +1,16 @@
 @echo off
-echo Stopping any running Node.js processes...
-taskkill /F /IM node.exe >nul 2>&1
+echo Restarting Music Festival Hub Backend Server...
+echo.
+
+echo Checking for processes on port 5000...
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr :5000') do (
+    echo Killing process %%a
+    taskkill /F /PID %%a
+)
+
+echo.
 echo Starting backend server...
-start "" "%COMSPEC%" /c "cd /d %~dp0backend && npm run dev"
-echo Backend server is starting...
+cd backend
+call npm run dev
+
+pause

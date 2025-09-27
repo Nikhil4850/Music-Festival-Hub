@@ -279,9 +279,25 @@ class AuthManager {
         }, 50);
     }
 
-    logout() {
+    async logout() {
         const confirmed = confirm('Are you sure you want to logout?');
         if (!confirmed) return;
+
+        try {
+            // If we have a token, call the backend logout endpoint
+            if (this.currentUser && this.currentUser.token) {
+                await fetch('http://localhost:5000/api/v1/auth/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.currentUser.token}`
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Logout API error:', error);
+            // Continue with local logout even if API fails
+        }
 
         localStorage.removeItem('currentUser');
         this.currentUser = null;
@@ -296,14 +312,14 @@ class AuthManager {
             showMessage('Logged out successfully. Redirecting...', 'success');
         }
 
-        // Redirect to home page
+        // Redirect to login page instead of index.html to prevent auto-login
         setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = 'login.html';
         }, 1500);
     }
 
     isLoggedIn() {
-        return !!this.currentUser;
+        return !!(this.currentUser && this.currentUser.isLoggedIn);
     }
 
     requireAuth() {
@@ -312,6 +328,50 @@ class AuthManager {
             return false;
         }
         return true;
+    }
+    
+    getAuthToken() {
+        // Return the JWT token if available
+        if (this.currentUser && this.currentUser.token) {
+            return this.currentUser.token;
+        }
+        return null;
+    }
+    
+    // Method to verify token with backend
+    async verifyToken() {
+        if (!this.currentUser || !this.currentUser.token) {
+            return false;
+        }
+        
+        try {
+            const response = await fetch('http://localhost:5000/api/v1/auth/me', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.currentUser.token}`
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Update user data with latest from server
+                const updatedUser = {
+                    ...this.currentUser,
+                    ...data.data.user
+                };
+                this.login(updatedUser);
+                return true;
+            } else {
+                // Token is invalid, logout user
+                this.logout();
+                return false;
+            }
+        } catch (error) {
+            console.error('Token verification error:', error);
+            return false;
+        }
     }
 }
 
@@ -340,4 +400,5 @@ if (document.readyState === 'loading') {
 // Export for use in other scripts
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = AuthManager;
+
 }

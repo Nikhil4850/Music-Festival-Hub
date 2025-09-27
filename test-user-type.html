@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Type Test - Music Festival Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Music Festival Hub</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="bookings.html" class="nav-link">My Bookings</a>
+                <a href="club.html" class="nav-link">Club</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
+                <div id="authSection">
+                    <a href="login.html" class="nav-link login-btn">Login</a>
+                </div>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="container">
+            <div class="test-container">
+                <div class="test-card">
+                    <div class="test-header">
+                        <h2>User Type Test</h2>
+                        <p>Verify that user type selection works correctly</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Select User Type:</label>
+                        <div class="user-type-options">
+                            <label class="user-type-option">
+                                <input type="radio" name="userType" value="normal" checked>
+                                <div class="user-type-content">
+                                    <i class="fas fa-user"></i>
+                                    <div>
+                                        <span class="user-type-title">Normal User</span>
+                                        <span class="user-type-desc">Browse events, book tickets, and enjoy festivals</span>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="user-type-option">
+                                <input type="radio" name="userType" value="creator">
+                                <div class="user-type-content">
+                                    <i class="fas fa-music"></i>
+                                    <div>
+                                        <span class="user-type-title">Creator</span>
+                                        <span class="user-type-desc">Create and manage your own music events</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button id="testButton" class="cta-button primary full-width">
+                            <i class="fas fa-vial"></i>
+                            <span>Test User Type</span>
+                        </button>
+                    </div>
+                    
+                    <div id="result" class="test-result"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const testButton = document.getElementById('testButton');
+            const resultDiv = document.getElementById('result');
+            
+            testButton.addEventListener('click', function() {
+                const selectedUserType = document.querySelector('input[name="userType"]:checked').value;
+                
+                resultDiv.innerHTML = `
+                    <div class="result-content">
+                        <h3><i class="fas fa-check-circle success-icon"></i> Test Successful</h3>
+                        <p>You have selected: <strong>${selectedUserType.charAt(0).toUpperCase() + selectedUserType.slice(1)} User</strong></p>
+                        <div class="user-type-info">
+                            <h4>What this means:</h4>
+                            <ul>
+                                ${selectedUserType === 'normal' 
+                                    ? `<li>Browse and search all music events</li>
+                                       <li>Book tickets for events</li>
+                                       <li>Save your favorite events</li>
+                                       <li>Leave reviews and ratings</li>
+                                       <li>Access exclusive club benefits</li>`
+                                    : `<li>Create and manage your own events</li>
+                                       <li>Set ticket prices and availability</li>
+                                       <li>Manage bookings for your events</li>
+                                       <li>View analytics and reports</li>
+                                       <li>Connect with your audience</li>`}
+                            </ul>
+                        </div>
+                        <div class="cta-section">
+                            <a href="register.html" class="cta-button primary">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Create Account</span>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                resultDiv.style.display = 'block';
+            });
+        });
+    </script>
+
+    <style>
+        .test-section {
+            padding: 150px 0 100px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+        }
+        
+        .test-card {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .test-header h2 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ff006e, #8b5cf6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .test-header p {
+            color: #cccccc;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+        
+        /* User Type Options */
+        .user-type-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .user-type-option {
+            display: block;
+            cursor: pointer;
+        }
+        
+        .user-type-option input[type="radio"] {
+            display: none;
+        }
+        
+        .user-type-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .user-type-option input[type="radio"]:checked + .user-type-content {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: #8b5cf6;
+        }
+        
+        .user-type-content i {
+            font-size: 1.5rem;
+            color: #8b5cf6;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .user-type-title {
+            display: block;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+        
+        .user-type-desc {
+            display: block;
+            font-size: 0.85rem;
+            color: #a0aec0;
+        }
+        
+        .cta-button.primary {
+            background: linear-gradient(135deg, #ff006e, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .cta-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+        
+        .test-result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+        
+        .result-content h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .success-icon {
+            color: #10b981;
+        }
+        
+        .result-content p {
+            color: #cbd5e1;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .user-type-info {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .user-type-info h4 {
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+        
+        .user-type-info ul {
+            color: #cbd5e1;
+            padding-left: 1.5rem;
+        }
+        
+        .user-type-info li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .cta-section {
+            text-align: center;
+        }
+        
+        .cta-section .cta-button {
+            display: inline-flex;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .test-card {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</body>
+</html>

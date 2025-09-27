@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Experience - Music Festival Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Music Festival Hub</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="bookings.html" class="nav-link">My Bookings</a>
+                <a href="club.html" class="nav-link active">Club</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
+                <div id="authSection">
+                    <a href="login.html" class="nav-link login-btn">Login</a>
+                </div>
+                <div class="app-nav-dropdown">
+                    <button class="app-nav-btn" onclick="toggleAppDropdown()">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Our App</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        <div class="btn-glow"></div>
+                    </button>
+                    <div class="app-dropdown-menu" id="appDropdown">
+                        <div class="dropdown-content">
+                            <button class="dropdown-option preview-btn" onclick="openAppPreview()">
+                                <i class="fas fa-eye"></i>
+                                <div class="option-text">
+                                    <span class="option-title">Preview App</span>
+                                    <span class="option-desc">See live screenshots</span>
+                                </div>
+                            </button>
+                            <button class="dropdown-option download-btn" onclick="downloadAPK()">
+                                <i class="fab fa-android"></i>
+                                <div class="option-text">
+                                    <span class="option-title">Download APK</span>
+                                    <span class="option-desc">Get Android app</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Club Experience Section -->
+    <section class="club-experience">
+        <div class="container">
+            <div class="experience-header">
+                <h1>Club Experience</h1>
+                <p>Enjoy synchronized music with your club members</p>
+            </div>
+            
+            <!-- Club Info -->
+            <div class="club-info-card">
+                <div class="club-info-header">
+                    <h2>Current Club: <span id="clubName">Music Lovers Club</span></h2>
+                    <div class="club-key">Key: <span id="clubKey">CLUB123456</span></div>
+                </div>
+                <div class="club-stats">
+                    <div class="stat">
+                        <i class="fas fa-users"></i>
+                        <span id="memberCount">5</span> Members
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-clock"></i>
+                        <span id="timeRemaining">58:23</span> Remaining
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Now Playing -->
+            <div class="now-playing-card">
+                <div class="now-playing-header">
+                    <h2>Now Playing</h2>
+                </div>
+                <div class="now-playing-content">
+                    <div class="album-art">
+                        <img src="https://via.placeholder.com/200x200/667eea/ffffff?text=♪" alt="Album Art">
+                    </div>
+                    <div class="track-info">
+                        <h3 id="trackName">Song Title</h3>
+                        <p id="artistName">Artist Name</p>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="time-info">
+                                <span id="currentTime">0:00</span>
+                                <span id="totalTime">0:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="player-controls">
+                    <button class="control-btn" id="prevBtn">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="control-btn play-pause" id="playPauseBtn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="control-btn" id="nextBtn">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Club Members -->
+            <div class="club-members">
+                <h2>Club Members</h2>
+                <div class="members-list" id="membersList">
+                    <!-- Members will be populated dynamically -->
+                </div>
+            </div>
+            
+            <!-- Chat Section -->
+            <div class="club-chat">
+                <h2>Club Chat</h2>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message">
+                        <div class="message-sender">Admin</div>
+                        <div class="message-content">Welcome to the club! Enjoy the music together.</div>
+                        <div class="message-time">10:30 AM</div>
+                    </div>
+                    <div class="message">
+                        <div class="message-sender">You</div>
+                        <div class="message-content">This is awesome! Loving this feature.</div>
+                        <div class="message-time">10:32 AM</div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Type your message...">
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section contact-section">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> club@musicfestivalhub.com</p>
+                        <p><i class="fas fa-phone"></i> +91 9766323998</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="club.html">Club</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Club Benefits</h3>
+                    <ul class="footer-links">
+                        <li><a href="#benefits">Early Access</a></li>
+                        <li><a href="#benefits">VIP Seating</a></li>
+                        <li><a href="#benefits">Backstage Passes</a></li>
+                        <li><a href="#benefits">Exclusive Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Music Festival Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            if (!authManager || !authManager.isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Initialize club experience
+            initializeClubExperience();
+            
+            // Set up event listeners
+            document.getElementById('playPauseBtn').addEventListener('click', togglePlayPause);
+            document.getElementById('sendBtn').addEventListener('click', sendMessage);
+            document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Simulate club activity
+            simulateClubActivity();
+        });
+        
+        function initializeClubExperience() {
+            // Get club key from URL parameter (in a real app)
+            const urlParams = new URLSearchParams(window.location.search);
+            const clubKey = urlParams.get('key') || 'CLUB123456';
+            
+            // Update club info
+            document.getElementById('clubKey').textContent = clubKey;
+            
+            // Simulate getting club data
+            updateMemberCount(5);
+            updateTimeRemaining('58:23');
+        }
+        
+        function togglePlayPause() {
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const icon = playPauseBtn.querySelector('i');
+            
+            if (icon.classList.contains('fa-play')) {
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+                playPauseBtn.classList.add('playing');
+                simulatePlayback();
+            } else {
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+                playPauseBtn.classList.remove('playing');
+                stopPlaybackSimulation();
+            }
+        }
+        
+        function sendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const message = chatInput.value.trim();
+            
+            if (message) {
+                const chatMessages = document.getElementById('chatMessages');
+                const messageElement = document.createElement('div');
+                messageElement.className = 'message';
+                messageElement.innerHTML = `
+                    <div class="message-sender">You</div>
+                    <div class="message-content">${message}</div>
+                    <div class="message-time">${getCurrentTime()}</div>
+                `;
+                
+                chatMessages.appendChild(messageElement);
+                chatInput.value = '';
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+        
+        function getCurrentTime() {
+            const now = new Date();
+            return now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+        }
+        
+        function updateMemberCount(count) {
+            document.getElementById('memberCount').textContent = count;
+        }
+        
+        function updateTimeRemaining(time) {
+            document.getElementById('timeRemaining').textContent = time;
+        }
+        
+        // Simulate club activity
+        function simulateClubActivity() {
+            // Simulate members joining
+            setInterval(() => {
+                const currentCount = parseInt(document.getElementById('memberCount').textContent);
+                if (currentCount < 10) {
+                    updateMemberCount(currentCount + 1);
+                }
+            }, 30000); // Every 30 seconds
+            
+            // Simulate time countdown
+            setInterval(() => {
+                const timeElement = document.getElementById('timeRemaining');
+                const [minutes, seconds] = timeElement.textContent.split(':').map(Number);
+                let totalSeconds = minutes * 60 + seconds;
+                
+                if (totalSeconds > 0) {
+                    totalSeconds--;
+                    const newMinutes = Math.floor(totalSeconds / 60);
+                    const newSeconds = totalSeconds % 60;
+                    timeElement.textContent = newMinutes + ':' + (newSeconds < 10 ? '0' : '') + newSeconds;
+                }
+            }, 1000); // Every second
+        }
+        
+        // Simulate playback progress
+        function simulatePlayback() {
+            const progressFill = document.getElementById('progressFill');
+            const currentTimeElement = document.getElementById('currentTime');
+            const totalTimeElement = document.getElementById('totalTime');
+            
+            // Set total time to 3:30 for demo
+            totalTimeElement.textContent = '3:30';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 0.5;
+                const percentage = Math.min(progress, 100);
+                progressFill.style.width = percentage + '%';
+                
+                // Update current time
+                const totalSeconds = 210; // 3:30 in seconds
+                const currentSeconds = Math.floor((percentage / 100) * totalSeconds);
+                const minutes = Math.floor(currentSeconds / 60);
+                const seconds = currentSeconds % 60;
+                currentTimeElement.textContent = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+                
+                // Stop when reaching 100%
+                if (percentage >= 100) {
+                    clearInterval(interval);
+                    // Auto pause when finished
+                    const playPauseBtn = document.getElementById('playPauseBtn');
+                    const icon = playPauseBtn.querySelector('i');
+                    icon.classList.remove('fa-pause');
+                    icon.classList.add('fa-play');
+                    playPauseBtn.classList.remove('playing');
+                }
+            }, 500);
+        }
+        
+        function stopPlaybackSimulation() {
+            // In a real implementation, this would stop the playback simulation
+            console.log('Playback simulation stopped');
+        }
+    </script>
+    
+    <style>
+        .club-experience {
+            padding: 150px 0 100px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+        }
+        
+        .experience-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .experience-header h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff006e, #8b5cf6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .experience-header p {
+            color: #cccccc;
+            font-size: 1.2rem;
+        }
+        
+        .club-info-card {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+        }
+        
+        .club-info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .club-info-header h2 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .club-key {
+            background: rgba(255, 0, 110, 0.2);
+            color: #ff006e;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .club-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #cccccc;
+        }
+        
+        .stat i {
+            color: #ff006e;
+        }
+        
+        .now-playing-card {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+        }
+        
+        .now-playing-header h2 {
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .now-playing-content {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .album-art {
+            flex: 0 0 200px;
+        }
+        
+        .album-art img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .track-info {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .track-info h3 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .track-info p {
+            color: #ff006e;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .progress-container {
+            margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff006e, #8b5cf6);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            color: #999999;
+            font-size: 0.9rem;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 0, 110, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .control-btn.play-pause {
+            width: 70px;
+            height: 70px;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #ff006e, #8b5cf6);
+        }
+        
+        .control-btn.play-pause.playing {
+            background: linear-gradient(135deg, #8b5cf6, #ff006e);
+        }
+        
+        .club-members {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+        }
+        
+        .club-members h2 {
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .members-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .member {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .member-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff006e, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .member-name {
+            color: #ffffff;
+            font-weight: 500;
+        }
+        
+        .club-chat {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+        }
+        
+        .club-chat h2 {
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .message:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .message-sender {
+            font-weight: 600;
+            color: #ff006e;
+            margin-bottom: 0.25rem;
+        }
+        
+        .message-content {
+            color: #cccccc;
+            margin-bottom: 0.25rem;
+        }
+        
+        .message-time {
+            font-size: 0.8rem;
+            color: #999999;
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+        
+        .chat-input input:focus {
+            outline: none;
+            border-color: #ff006e;
+            box-shadow: 0 0 0 2px rgba(255, 0, 110, 0.2);
+        }
+        
+        .send-btn {
+            width: 50px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, #ff006e, #8b5cf6);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .club-experience {
+                padding: 120px 0 60px;
+            }
+            
+            .experience-header h1 {
+                font-size: 2rem;
+            }
+            
+            .now-playing-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .album-art {
+                flex: 0 0 auto;
+            }
+            
+            .player-controls {
+                gap: 1rem;
+            }
+            
+            .control-btn {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .control-btn.play-pause {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</body>
+</html>

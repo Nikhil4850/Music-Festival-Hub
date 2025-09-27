@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Database Connection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div style="padding: 50px; text-align: center; background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%); min-height: 100vh;">
+        <h1 style="color: white; font-size: 2.5rem; margin-bottom: 20px; background: linear-gradient(135deg, #ff006e, #8b5cf6); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Test Database Connection</h1>
+        <p style="color: #cccccc; font-size: 1.2rem; margin-bottom: 30px;">Testing connection to the backend API and database</p>
+        
+        <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 30px; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: white; margin-bottom: 20px;">API Connection Test</h2>
+            <div id="api-status" style="margin-bottom: 30px; padding: 20px; background: rgba(0, 0, 0, 0.3); border-radius: 10px; color: #cccccc;">
+                Testing API connection...
+            </div>
+            
+            <h2 style="color: white; margin-bottom: 20px;">Test Registration</h2>
+            <div style="margin-bottom: 30px; padding: 20px; background: rgba(0, 0, 0, 0.3); border-radius: 10px; text-align: left;">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #cccccc; margin-bottom: 5px;">Name:</label>
+                    <input type="text" id="testName" value="Test User" style="width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; color: white;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #cccccc; margin-bottom: 5px;">Email:</label>
+                    <input type="email" id="testEmail" value="test@example.com" style="width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; color: white;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #cccccc; margin-bottom: 5px;">Password:</label>
+                    <input type="password" id="testPassword" value="password123" style="width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; color: white;">
+                </div>
+                <button onclick="testRegistration()" style="padding: 12px 24px; font-size: 16px; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 10px; cursor: pointer; margin: 10px; transition: all 0.3s ease;">
+                    Test Registration
+                </button>
+            </div>
+            
+            <h2 style="color: white; margin-bottom: 20px;">Test Login</h2>
+            <div style="margin-bottom: 30px; padding: 20px; background: rgba(0, 0, 0, 0.3); border-radius: 10px; text-align: left;">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #cccccc; margin-bottom: 5px;">Email:</label>
+                    <input type="email" id="loginEmail" value="test@example.com" style="width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; color: white;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #cccccc; margin-bottom: 5px;">Password:</label>
+                    <input type="password" id="loginPassword" value="password123" style="width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; color: white;">
+                </div>
+                <button onclick="testLogin()" style="padding: 12px 24px; font-size: 16px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; border-radius: 10px; cursor: pointer; margin: 10px; transition: all 0.3s ease;">
+                    Test Login
+                </button>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <a href="login.html" style="display: inline-block; margin: 10px; padding: 12px 24px; background: rgba(255, 255, 255, 0.1); color: white; text-decoration: none; border-radius: 8px; transition: all 0.3s ease;">Go to Login Page</a>
+                <a href="register.html" style="display: inline-block; margin: 10px; padding: 12px 24px; background: rgba(255, 255, 255, 0.1); color: white; text-decoration: none; border-radius: 8px; transition: all 0.3s ease;">Go to Register Page</a>
+                <a href="index.html" style="display: inline-block; margin: 10px; padding: 12px 24px; background: rgba(255, 255, 255, 0.1); color: white; text-decoration: none; border-radius: 8px; transition: all 0.3s ease;">Go to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test API connection when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            testApiConnection();
+        });
+        
+        async function testApiConnection() {
+            const apiStatusDiv = document.getElementById('api-status');
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/health');
+                const data = await response.json();
+                
+                if (data.status === 'OK') {
+                    apiStatusDiv.innerHTML = `
+                        <div style="color: #4ade80;">
+                            <h3>✅ API Connection Successful</h3>
+                            <p><strong>Message:</strong> ${data.message}</p>
+                            <p><strong>Timestamp:</strong> ${data.timestamp}</p>
+                        </div>
+                    `;
+                } else {
+                    apiStatusDiv.innerHTML = `
+                        <div style="color: #f87171;">
+                            <h3>❌ API Connection Failed</h3>
+                            <p>Unexpected response from API</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('API connection error:', error);
+                apiStatusDiv.innerHTML = `
+                    <div style="color: #f87171;">
+                        <h3>❌ API Connection Failed</h3>
+                        <p>Error: ${error.message}</p>
+                        <p>Please make sure the backend server is running on port 5000</p>
+                    </div>
+                `;
+            }
+        }
+        
+        async function testRegistration() {
+            const name = document.getElementById('testName').value;
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/v1/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        name: name,
+                        email: email, 
+                        password: password,
+                        userType: 'normal'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showNotification('Registration successful!', 'success');
+                } else {
+                    let errorMessage = 'Registration failed.';
+                    if (data.errors && data.errors.length > 0) {
+                        errorMessage = data.errors[0].msg;
+                    } else if (data.message) {
+                        errorMessage = data.message;
+                    }
+                    showNotification(errorMessage, 'error');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                showNotification('Network error. Please check your connection.', 'error');
+            }
+        }
+        
+        async function testLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/v1/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showNotification('Login successful!', 'success');
+                } else {
+                    showNotification(data.message || 'Login failed.', 'error');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showNotification('Network error. Please check your connection.', 'error');
+            }
+        }
+        
+        // Show notification
+        function showNotification(message, type) {
+            // Remove any existing notifications
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'rgba(72, 187, 120, 0.9)' : type === 'error' ? 'rgba(220, 38, 38, 0.9)' : 'rgba(59, 130, 246, 0.9)'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                backdrop-filter: blur(10px);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

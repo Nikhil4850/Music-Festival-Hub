@@ -64,6 +64,23 @@
             padding: 2rem;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 110, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .dashboard-card:hover::before {
+            left: 100%;
         }
         
         .dashboard-card:hover {
@@ -137,6 +154,23 @@
             gap: 0.5rem;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .action-btn:hover::before {
+            left: 100%;
         }
         
         .action-btn:hover {
@@ -150,6 +184,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 2rem;
+            margin-bottom: 3rem;
         }
         
         .recent-activity h2 {
@@ -168,6 +203,12 @@
             border-radius: 10px;
             margin-bottom: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .activity-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
         }
         
         .activity-icon {
@@ -201,6 +242,182 @@
             font-size: 0.9rem;
         }
         
+        /* New Sections */
+        .stats-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stats-section h2 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 0, 110, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff006e;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .upcoming-events {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+        
+        .upcoming-events h2 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .events-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .event-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 0, 110, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .event-date {
+            color: #ff006e;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .event-name {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .event-venue {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .event-action {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .view-event-btn {
+            background: rgba(255, 0, 110, 0.2);
+            color: #ff006e;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .view-event-btn:hover {
+            background: rgba(255, 0, 110, 0.3);
+        }
+        
+        /* Personalized Welcome Section */
+        .personalized-welcome {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .welcome-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .welcome-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff006e, #8a2be2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .welcome-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .welcome-content h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff006e, #8a2be2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 1rem;
+        }
+        
         @media (max-width: 768px) {
             .dashboard-content {
                 padding: 0 1rem;
@@ -218,6 +435,28 @@
                 flex-direction: column;
                 align-items: center;
             }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .events-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-content h3 {
+                font-size: 1.5rem;
+            }
+            
+            .welcome-content p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -232,9 +471,37 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="events.html" class="nav-link">Events</a>
                 <a href="bookings.html" class="nav-link">My Bookings</a>
+                <a href="club.html" class="nav-link">Club</a>
                 <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
                 <div id="authSection">
                     <!-- This will be populated by auth-manager.js -->
+                </div>
+                <div class="app-nav-dropdown">
+                    <button class="app-nav-btn" onclick="toggleAppDropdown()">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Our App</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        <div class="btn-glow"></div>
+                    </button>
+                    <div class="app-dropdown-menu" id="appDropdown">
+                        <div class="dropdown-content">
+                            <button class="dropdown-option preview-btn" onclick="openAppPreview()">
+                                <i class="fas fa-eye"></i>
+                                <div class="option-text">
+                                    <span class="option-title">Preview App</span>
+                                    <span class="option-desc">See live screenshots</span>
+                                </div>
+                            </button>
+                            <button class="dropdown-option download-btn" onclick="downloadAPK()">
+                                <i class="fab fa-android"></i>
+                                <div class="option-text">
+                                    <span class="option-title">Download APK</span>
+                                    <span class="option-desc">Get Android app</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="nav-toggle">
@@ -250,14 +517,56 @@
         <div class="dashboard-header">
             <div class="container">
                 <div class="welcome-section">
-                    <h1>Welcome Back, <span id="userName">Music Lover</span>!</h1>
-                    <p>Discover amazing events and manage your bookings</p>
+                    <h1>Welcome Back, <span id="userName">Music Lover</span>! 👋</h1>
+                    <p>Ready to discover your next musical adventure?</p>
                 </div>
             </div>
         </div>
 
         <!-- Dashboard Content -->
         <div class="dashboard-content">
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <h2>Your Music Journey</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalEvents">12</div>
+                        <div class="stat-label">Events Attended</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalBookings">8</div>
+                        <div class="stat-label">Active Bookings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="favoriteArtists">15</div>
+                        <div class="stat-label">Favorite Artists</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalHours">42</div>
+                        <div class="stat-label">Hours of Music</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Personalized Welcome Message -->
+            <div class="personalized-welcome">
+                <div class="welcome-card">
+                    <div class="welcome-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="welcome-content">
+                        <h3>Ready for Your Next Adventure?</h3>
+                        <p id="personalizedMessage">Check out the latest events and book your tickets now!</p>
+                    </div>
+                    <div class="welcome-action">
+                        <button class="cta-button primary" onclick="window.location.href='events.html'">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Browse Events</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Dashboard Cards -->
             <div class="dashboard-grid">
                 <div class="dashboard-card" onclick="window.location.href='events.html'">
@@ -276,12 +585,28 @@
                     <div class="card-description">View and manage your event tickets and reservations</div>
                 </div>
 
+                <div class="dashboard-card" onclick="window.location.href='create-club.html'">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-title">Create Club</div>
+                    <div class="card-description">Start a synchronized listening experience with friends</div>
+                </div>
+
                 <div class="dashboard-card" onclick="window.location.href='profile.html'">
                     <div class="card-icon">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="card-title">My Profile</div>
                     <div class="card-description">Update your preferences and account settings</div>
+                </div>
+
+                <div class="dashboard-card" onclick="window.location.href='club.html'">
+                    <div class="card-icon">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <div class="card-title">Join Club</div>
+                    <div class="card-description">Join existing clubs and listen to music together</div>
                 </div>
 
                 <div class="dashboard-card">
@@ -305,10 +630,47 @@
                         <i class="fas fa-ticket-alt"></i>
                         View Tickets
                     </a>
+                    <a href="create-club.html" class="action-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        Create Club
+                    </a>
                     <a href="profile.html" class="action-btn">
                         <i class="fas fa-cog"></i>
                         Settings
                     </a>
+                </div>
+            </div>
+            
+            <!-- Upcoming Events -->
+            <div class="upcoming-events">
+                <h2>Upcoming Events</h2>
+                <div class="events-list">
+                    <div class="event-card">
+                        <div class="event-date">Sat, Jul 15, 2024</div>
+                        <div class="event-name">Electric Dreams Festival</div>
+                        <div class="event-venue">Central Park, NYC</div>
+                        <div class="event-action">
+                            <button class="view-event-btn" onclick="window.location.href='event-details.html#1'">View Details</button>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">Sun, Aug 20, 2024</div>
+                        <div class="event-name">Rock Revolution</div>
+                        <div class="event-venue">Madison Square Garden, NYC</div>
+                        <div class="event-action">
+                            <button class="view-event-btn" onclick="window.location.href='event-details.html#2'">View Details</button>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">Thu, Sep 10, 2024</div>
+                        <div class="event-name">Jazz & Blues Night</div>
+                        <div class="event-venue">Blue Note, NYC</div>
+                        <div class="event-action">
+                            <button class="view-event-btn" onclick="window.location.href='event-details.html#3'">View Details</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -340,6 +702,15 @@
                     <div class="activity-content">
                         <div class="activity-title">Updated profile preferences</div>
                         <div class="activity-time">2 weeks ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Created a club for 'Blinding Lights'</div>
+                        <div class="activity-time">1 month ago</div>
                     </div>
                 </div>
             </div>
@@ -391,20 +762,58 @@
     </footer>
 
     <script src="auth-manager.js"></script>
+    <script src="script.js"></script>
     <script>
         // Load user data when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            // Get user data from localStorage (currentUser is set by auth-manager.js)
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            
+            // Also check userData as fallback
             const userData = JSON.parse(localStorage.getItem('userData') || '{}');
             
-            if (userData.name) {
-                document.getElementById('userName').textContent = userData.name;
+            // Use currentUser if available, otherwise fallback to userData
+            let user = currentUser.email ? currentUser : userData;
+            
+            // Check if user is actually logged in, redirect to login if not
+            if (!user.email || user.isLoggedIn !== true) {
+                window.location.href = 'login.html';
+                return;
             }
             
-            // Check if user is logged in, redirect if not
-            if (!userData.email) {
-                window.location.href = 'login.html';
+            // Set user name in welcome message
+            const userNameElement = document.getElementById('userName');
+            if (user.name) {
+                userNameElement.textContent = user.name;
+            } else if (user.email) {
+                // Use email as name if name is not available
+                const emailName = user.email.split('@')[0];
+                userNameElement.textContent = emailName.charAt(0).toUpperCase() + emailName.slice(1);
             }
+            
+            // Personalize the welcome message
+            const personalizedMessage = document.getElementById('personalizedMessage');
+            if (user.name) {
+                personalizedMessage.textContent = user.name + ", check out the latest events and book your tickets now!";
+            }
+            
+            // Initialize dashboard animations
+            initializeDashboardAnimations();
         });
+        
+        function initializeDashboardAnimations() {
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.dashboard-card, .stat-card, .event-card, .welcome-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        }
     </script>
 </body>
 </html>

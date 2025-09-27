@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Login - Music Festival Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div style="padding: 50px; text-align: center; background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%); min-height: 100vh;">
+        <h1 style="color: white; font-size: 2.5rem; margin-bottom: 20px; background: linear-gradient(135deg, #ff006e, #8b5cf6); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Verify Login Functionality</h1>
+        <p style="color: #cccccc; font-size: 1.2rem; margin-bottom: 30px;">Testing if anyone can login without registration</p>
+        
+        <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 30px; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: white; margin-bottom: 20px;">Current User Status</h2>
+            <div id="user-status" style="margin-bottom: 30px; padding: 20px; background: rgba(0, 0, 0, 0.3); border-radius: 10px; color: #cccccc;">
+                Checking user status...
+            </div>
+            
+            <button onclick="createGuestUser()" style="padding: 15px 30px; font-size: 18px; background: linear-gradient(135deg, #ff006e, #8b5cf6); color: white; border: none; border-radius: 10px; cursor: pointer; margin: 10px; transition: all 0.3s ease;">
+                Create Guest User
+            </button>
+            
+            <button onclick="clearUser()" style="padding: 15px 30px; font-size: 18px; background: linear-gradient(135deg, #6b7280, #374151); color: white; border: none; border-radius: 10px; cursor: pointer; margin: 10px; transition: all 0.3s ease;">
+                Clear User Data
+            </button>
+            
+            <div style="margin-top: 30px;">
+                <a href="login.html" style="display: inline-block; margin: 10px; padding: 12px 24px; background: rgba(255, 255, 255, 0.1); color: white; text-decoration: none; border-radius: 8px; transition: all 0.3s ease;">Go to Login Page</a>
+                <a href="user-dashboard.html" style="display: inline-block; margin: 10px; padding: 12px 24px; background: rgba(255, 255, 255, 0.1); color: white; text-decoration: none; border-radius: 8px; transition: all 0.3s ease;">Go to Dashboard</a>
+                <a href="index.html" style="display: inline-block; margin: 10px; padding: 12px 24px; background: rgba(255, 255, 255, 0.1); color: white; text-decoration: none; border-radius: 8px; transition: all 0.3s ease;">Go to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check current user status
+        function checkUserStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const userStatusDiv = document.getElementById('user-status');
+            
+            if (currentUser.email) {
+                userStatusDiv.innerHTML = `
+                    <div style="color: #4ade80;">
+                        <h3>✅ User Logged In</h3>
+                        <p><strong>Name:</strong> ${currentUser.name || 'N/A'}</p>
+                        <p><strong>Email:</strong> ${currentUser.email}</p>
+                        <p><strong>Logged In:</strong> ${currentUser.isLoggedIn ? 'Yes' : 'No'}</p>
+                    </div>
+                `;
+            } else {
+                userStatusDiv.innerHTML = `
+                    <div style="color: #f87171;">
+                        <h3>❌ No User Logged In</h3>
+                        <p>No user data found in localStorage</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Create a guest user
+        function createGuestUser() {
+            const guestUser = {
+                email: 'guest@example.com',
+                name: 'Guest User',
+                isLoggedIn: true
+            };
+            
+            localStorage.setItem('currentUser', JSON.stringify(guestUser));
+            checkUserStatus();
+            
+            // Show notification
+            showNotification('Guest user created successfully!', 'success');
+        }
+        
+        // Clear user data
+        function clearUser() {
+            localStorage.removeItem('currentUser');
+            checkUserStatus();
+            
+            // Show notification
+            showNotification('User data cleared', 'info');
+        }
+        
+        // Show notification
+        function showNotification(message, type) {
+            // Remove any existing notifications
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'rgba(72, 187, 120, 0.9)' : type === 'error' ? 'rgba(220, 38, 38, 0.9)' : 'rgba(59, 130, 246, 0.9)'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                backdrop-filter: blur(10px);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Check user status when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserStatus();
+        });
+    </script>
+</body>
+</html>

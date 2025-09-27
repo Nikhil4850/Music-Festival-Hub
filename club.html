@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club - Music Festival Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Music Festival Hub</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="bookings.html" class="nav-link">My Bookings</a>
+                <a href="club.html" class="nav-link active">Club</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
+                <div id="authSection">
+                    <a href="login.html" class="nav-link login-btn">Login</a>
+                </div>
+                <div class="app-nav-dropdown">
+                    <button class="app-nav-btn" onclick="toggleAppDropdown()">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Our App</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        <div class="btn-glow"></div>
+                    </button>
+                    <div class="app-dropdown-menu" id="appDropdown">
+                        <div class="dropdown-content">
+                            <button class="dropdown-option preview-btn" onclick="openAppPreview()">
+                                <i class="fas fa-eye"></i>
+                                <div class="option-text">
+                                    <span class="option-title">Preview App</span>
+                                    <span class="option-desc">See live screenshots</span>
+                                </div>
+                            </button>
+                            <button class="dropdown-option download-btn" onclick="downloadAPK()">
+                                <i class="fab fa-android"></i>
+                                <div class="option-text">
+                                    <span class="option-title">Download APK</span>
+                                    <span class="option-desc">Get Android app</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Club Hero Section -->
+    <section class="club-hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-crown"></i>
+                    <span>VIP MEMBERSHIP</span>
+                </div>
+                <h1 class="hero-title">
+                    Join the <span class="gradient-text">Music Festival Club</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Unlock exclusive access to premium events, early bird tickets, backstage passes, and VIP experiences. 
+                    Connect with fellow music lovers and enjoy unparalleled festival experiences.
+                </p>
+                <div class="hero-actions">
+                    <button class="cta-button primary" onclick="createClub()">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Create Club</span>
+                    </button>
+                    <button class="cta-button secondary" onclick="joinClub()">
+                        <i class="fas fa-users"></i>
+                        <span>Join Club</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Search Section -->
+    <section class="music-search">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Discover Music</h2>
+                <p class="section-subtitle">Search for your favorite songs and artists</p>
+            </div>
+            
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Enter artist or song name..." class="search-input">
+                    <button id="searchButton" class="search-btn" onclick="searchSongs()">
+                        <i class="fas fa-search"></i>
+                        <span>Show Songs</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Featured Artists Section -->
+            <div class="featured-artists" id="featuredArtists">
+                <h3 class="artists-title">Popular Artists</h3>
+                <div class="artists-grid">
+                    <div class="artist-card" onclick="selectArtist('Arijit Singh')">
+                        <div class="artist-image">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&crop=face" alt="Arijit Singh">
+                        </div>
+                        <div class="artist-info">
+                            <div class="artist-header">
+                                <i class="fas fa-microphone artist-icon"></i>
+                                <h4>Arijit Singh</h4>
+                            </div>
+                            <div class="artist-genre">BOLLYWOOD/ROMANTIC</div>
+                            <p class="artist-description">India's most beloved playback singer known for soulful melodies and romantic ballads.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="artist-card" onclick="selectArtist('Armaan Malik')">
+                        <div class="artist-image">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop&crop=face" alt="Armaan Malik">
+                        </div>
+                        <div class="artist-info">
+                            <div class="artist-header">
+                                <i class="fas fa-music artist-icon"></i>
+                                <h4>Armaan Malik</h4>
+                            </div>
+                            <div class="artist-genre">POP/BOLLYWOOD</div>
+                            <p class="artist-description">Young and talented playback singer known for his melodious voice and contemporary hits.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="artist-card" onclick="selectArtist('Shreya Ghoshal')">
+                        <div class="artist-image">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=200&fit=crop&crop=face" alt="Shreya Ghoshal">
+                        </div>
+                        <div class="artist-info">
+                            <div class="artist-header">
+                                <i class="fas fa-crown artist-icon"></i>
+                                <h4>Shreya Ghoshal</h4>
+                            </div>
+                            <div class="artist-genre">CLASSICAL/BOLLYWOOD</div>
+                            <p class="artist-description">Legendary playback singer with a mesmerizing voice and numerous awards.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="loading-spinner" id="musicLoadingSpinner" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Searching for songs...</p>
+            </div>
+            
+            <div class="songs-results" id="songsResults">
+                <!-- Search results will be displayed here -->
+            </div>
+            
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-music"></i>
+                <p>No songs found. Try searching for a different artist or song.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Club Benefits Section -->
+    <section class="club-benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Exclusive Club Benefits</h2>
+                <p class="section-subtitle">Experience music festivals like never before with premium perks</p>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h3>Early Bird Access</h3>
+                    <p>Get first access to tickets 48 hours before public release. Never miss out on sold-out events again.</p>
+                    <div class="benefit-highlight">Up to 30% savings</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-backstage"></i>
+                    </div>
+                    <h3>Backstage Passes</h3>
+                    <p>Meet your favorite artists with exclusive backstage access and photo opportunities at select events.</p>
+                    <div class="benefit-highlight">VIP Experience</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Premium Seating</h3>
+                    <p>Reserved VIP areas with the best views, comfortable seating, and dedicated service staff.</p>
+                    <div class="benefit-highlight">Best Views</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>Exclusive Merch</h3>
+                    <p>Limited edition merchandise, artist signed items, and special club-only collectibles.</p>
+                    <div class="benefit-highlight">Collector Items</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Access</h3>
+                    <p>Join our private community of music enthusiasts, share experiences, and make new friends.</p>
+                    <div class="benefit-highlight">5000+ Members</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <h3>Concierge Service</h3>
+                    <p>Personal event planning assistance, travel arrangements, and 24/7 customer support.</p>
+                    <div class="benefit-highlight">24/7 Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Tiers -->
+    <section class="membership-tiers">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Choose Your Membership</h2>
+                <p class="section-subtitle">Select the perfect plan for your festival lifestyle</p>
+            </div>
+            
+            <div class="tiers-grid">
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <h3>Bronze</h3>
+                        <div class="tier-price">
+                            <span class="price">₹999</span>
+                            <span class="period">/year</span>
+                        </div>
+                    </div>
+                    <div class="tier-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Early bird ticket access</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>10% discount on all events</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Community forum access</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Monthly newsletter</span>
+                        </div>
+                    </div>
+                    <button class="tier-button">Choose Bronze</button>
+                </div>
+                
+                <div class="tier-card featured">
+                    <div class="tier-badge">Most Popular</div>
+                    <div class="tier-header">
+                        <h3>Silver</h3>
+                        <div class="tier-price">
+                            <span class="price">₹1,999</span>
+                            <span class="period">/year</span>
+                        </div>
+                    </div>
+                    <div class="tier-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>All Bronze benefits</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>VIP seating areas</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>20% discount on all events</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Exclusive merchandise</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Priority customer support</span>
+                        </div>
+                    </div>
+                    <button class="tier-button">Choose Silver</button>
+                </div>
+                
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <h3>Gold</h3>
+                        <div class="tier-price">
+                            <span class="price">₹3,999</span>
+                            <span class="period">/year</span>
+                        </div>
+                    </div>
+                    <div class="tier-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>All Silver benefits</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Backstage passes</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>30% discount on all events</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Meet & greet opportunities</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Concierge service</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Free event merchandise</span>
+                        </div>
+                    </div>
+                    <button class="tier-button">Choose Gold</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Club Events Section -->
+    <section class="club-events">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Exclusive Club Events</h2>
+                <p class="section-subtitle">Special events only for club members</p>
+            </div>
+            
+            <div class="events-grid">
+                <div class="club-event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400" alt="Acoustic Sessions">
+                        <div class="event-badge">Members Only</div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Intimate Acoustic Sessions</h3>
+                        <p>Private performances with renowned artists in exclusive venues</p>
+                        <div class="event-details">
+                            <span><i class="fas fa-calendar"></i> Monthly</span>
+                            <span><i class="fas fa-users"></i> 50 Members</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="club-event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400" alt="Artist Meetups">
+                        <div class="event-badge">VIP Access</div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Artist Meet & Greets</h3>
+                        <p>Personal interactions with your favorite musicians and bands</p>
+                        <div class="event-details">
+                            <span><i class="fas fa-calendar"></i> Bi-weekly</span>
+                            <span><i class="fas fa-users"></i> 25 Members</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="club-event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400" alt="Studio Tours">
+                        <div class="event-badge">Behind Scenes</div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Recording Studio Tours</h3>
+                        <p>Go behind the scenes and see how your favorite music is made</p>
+                        <div class="event-details">
+                            <span><i class="fas fa-calendar"></i> Quarterly</span>
+                            <span><i class="fas fa-users"></i> 30 Members</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="club-testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What Our Members Say</h2>
+                <p class="section-subtitle">Real experiences from our club community</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Being a Gold member has completely transformed my festival experience. The backstage access and meet & greets are incredible!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60" alt="Priya Sharma">
+                        </div>
+                        <div class="author-info">
+                            <h4>Priya Sharma</h4>
+                            <span>Gold Member</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The early bird access saved me hundreds of rupees and I never miss out on my favorite artists anymore. Highly recommend!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60" alt="Rahul Gupta">
+                        </div>
+                        <div class="author-info">
+                            <h4>Rahul Gupta</h4>
+                            <span>Silver Member</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The community is amazing! I've made so many friends who share my passion for music. The exclusive events are the cherry on top."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60" alt="Ananya Patel">
+                        </div>
+                        <div class="author-info">
+                            <h4>Ananya Patel</h4>
+                            <span>Bronze Member</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="club-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Elevate Your Festival Experience?</h2>
+                <p>Join thousands of music lovers who have already upgraded their festival journey</p>
+                <div class="cta-stats">
+                    <div class="stat">
+                        <span class="stat-number">5,000+</span>
+                        <span class="stat-label">Active Members</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">Exclusive Events</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Satisfaction Rate</span>
+                    </div>
+                </div>
+                <button class="cta-button primary large" onclick="joinClub()">
+                    <i class="fas fa-crown"></i>
+                    <span>Join the Club Today</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section contact-section">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> club@musicfestivalhub.com</p>
+                        <p><i class="fas fa-phone"></i> +91 9766323998</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="club.html">Club</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Club Benefits</h3>
+                    <ul class="footer-links">
+                        <li><a href="#benefits">Early Access</a></li>
+                        <li><a href="#benefits">VIP Seating</a></li>
+                        <li><a href="#benefits">Backstage Passes</a></li>
+                        <li><a href="#benefits">Exclusive Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Music Festival Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth-manager.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Club-specific JavaScript functions
+        function createClub() {
+            // Check if user is logged in
+            if (!authManager || !authManager.isLoggedIn()) {
+                // Redirect to login page
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Redirect to create club page
+            window.location.href = 'create-club.html';
+        }
+        
+        function joinClub() {
+            // Check if user is logged in
+            if (!authManager || !authManager.isLoggedIn()) {
+                // Redirect to login page
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Show join club modal
+            showJoinModal();
+        }
+        
+        function showJoinModal() {
+            // Create modal element
+            const modal = document.createElement('div');
+            modal.id = 'joinClubModal';
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Join a Club</h2>
+                        <button class="close-btn" onclick="closeJoinModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="clubKeyInput">Enter Club Key</label>
+                            <input type="text" id="clubKeyInput" placeholder="Enter the club key provided by the creator" class="search-input">
+                        </div>
+                        <button class="cta-button primary" onclick="joinClubWithKey()">
+                            <i class="fas fa-users"></i>
+                            <span>Join Club</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            modal.style.display = 'flex';
+        }
+        
+        function closeJoinModal() {
+            const modal = document.getElementById('joinClubModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.removeChild(modal);
+            }
+        }
+        
+        function joinClubWithKey() {
+            const clubKeyInput = document.getElementById('clubKeyInput');
+            const clubKey = clubKeyInput.value.trim();
+            
+            if (!clubKey) {
+                showNotification('⚠️ Please enter a club key', 'error');
+                return;
+            }
+            
+            // Validate club key format
+            if (!clubKey.startsWith('CLUB') || clubKey.length !== 10) {
+                showNotification('❌ Invalid club key format', 'error');
+                return;
+            }
+            
+            showNotification('🎉 Successfully joined the club!', 'success');
+            closeJoinModal();
+            
+            // In a real implementation, you would redirect to the club experience page
+            // window.location.href = 'club-experience.html?key=' + clubKey;
+        }
+        
+        // Utility function to show notifications
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'rgba(72, 187, 120, 0.9)' : 'rgba(220, 38, 38, 0.9)'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                backdrop-filter: blur(10px);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Artist selection functionality
+        function selectArtist(artistName) {
+            const searchInput = document.getElementById('searchInput');
+            const featuredArtists = document.getElementById('featuredArtists');
+            
+            // Set the artist name in the search input
+            searchInput.value = artistName;
+            
+            // Hide the featured artists section with animation
+            featuredArtists.style.opacity = '0';
+            featuredArtists.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                featuredArtists.style.display = 'none';
+                // Trigger the search
+                searchSongs();
+            }, 300);
+        }
+        
+        // iTunes Music Search Functions
+        async function searchSongs() {
+            const searchInput = document.getElementById('searchInput');
+            const loadingSpinner = document.getElementById('musicLoadingSpinner');
+            const songsResults = document.getElementById('songsResults');
+            const noResults = document.getElementById('noResults');
+            const searchButton = document.getElementById('searchButton');
+            const featuredArtists = document.getElementById('featuredArtists');
+            
+            const query = searchInput.value.trim();
+            
+            if (!query) {
+                showNotification('⚠️ Please enter an artist or song name to search', 'error');
+                return;
+            }
+            
+            try {
+                // Show loading state
+                loadingSpinner.style.display = 'block';
+                songsResults.innerHTML = '';
+                noResults.style.display = 'none';
+                searchButton.disabled = true;
+                
+                // Hide featured artists section
+                if (featuredArtists) {
+                    featuredArtists.style.display = 'none';
+                }
+                
+                // iTunes Search API endpoint - limit to 4 songs
+                const apiUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&limit=4&media=music&entity=song`;
+                
+                const response = await fetch(apiUrl);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch songs');
+                }
+                
+                const data = await response.json();
+                const songs = data.results || [];
+                
+                loadingSpinner.style.display = 'none';
+                searchButton.disabled = false;
+                
+                if (songs.length === 0) {
+                    noResults.style.display = 'block';
+                    return;
+                }
+                
+                displaySongs(songs);
+                
+            } catch (error) {
+                console.error('Error searching songs:', error);
+                loadingSpinner.style.display = 'none';
+                searchButton.disabled = false;
+                showNotification('❌ Error searching for songs. Please try again.', 'error');
+            }
+        }
+        
+        function displaySongs(songs) {
+            const songsResults = document.getElementById('songsResults');
+            songsResults.innerHTML = '';
+            
+            // Limit to 4 songs
+            const limitedSongs = songs.slice(0, 4);
+            
+            // Create a grid container for the songs
+            const gridContainer = document.createElement('div');
+            gridContainer.className = 'songs-grid';
+            
+            limitedSongs.forEach((song, index) => {
+                const songCard = createSongCard(song);
+                // Add animation delay for each card
+                songCard.style.animationDelay = `${index * 0.1}s`;
+                gridContainer.appendChild(songCard);
+            });
+            
+            songsResults.appendChild(gridContainer);
+        }
+        
+        function createSongCard(song) {
+            const card = document.createElement('div');
+            card.className = 'song-card';
+            
+            const artworkUrl = song.artworkUrl100 || song.artworkUrl60 || '';
+            const previewUrl = song.previewUrl || '';
+            const trackName = song.trackName || 'Unknown Track';
+            const artistName = song.artistName || 'Unknown Artist';
+            const albumName = song.collectionName || '';
+            const releaseDate = song.releaseDate ? new Date(song.releaseDate).getFullYear() : '';
+            const trackTime = song.trackTimeMillis ? formatTime(song.trackTimeMillis) : '';
+            
+            card.innerHTML = `
+                <div class="song-artwork">
+                    <img src="${artworkUrl}" alt="${trackName}" onerror="this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=♪'">
+                    <div class="song-overlay">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                </div>
+                <div class="song-details">
+                    <h3 class="song-name">${trackName}</h3>
+                    <p class="artist-name">${artistName}</p>
+                    ${albumName ? `<p class="album-name">${albumName} ${releaseDate ? `(${releaseDate})` : ''}</p>` : ''}
+                    ${trackTime ? `<p class="song-duration"><i class="fas fa-clock"></i> ${trackTime}</p>` : ''}
+                </div>
+                <div class="song-player">
+                    ${previewUrl ? 
+                        `<audio controls preload="none">
+                            <source src="${previewUrl}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>` : 
+                        '<p class="no-preview">No preview available</p>'
+                    }
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Helper function to format time in mm:ss
+        function formatTime(milliseconds) {
+            const totalSeconds = Math.floor(milliseconds / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Enter key support for search
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchSongs();
+                    }
+                });
+            }
+        });
+        
+        
+        function learnMore() {
+            document.querySelector('.club-benefits').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+        
+        // Add smooth scrolling for internal links
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

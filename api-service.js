@@ -6,12 +6,18 @@ class ApiService {
         const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
         
         if (isProduction) {
-            // For production, use relative URLs or your deployed backend URL
-            this.baseUrl = '/api'; // This will use the same domain as your frontend
-            this.useMockData = true; // Use mock data until backend is deployed
+            // For production, use relative URLs
+            this.baseUrl = '/api';
+            this.useMockData = false;
         } else {
-            // For local development
-            this.baseUrl = 'http://localhost:5000/api';
+            // For local development and network access
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                // Local development
+                this.baseUrl = 'http://localhost:5000/api';
+            } else {
+                // Network access - use the same hostname as the frontend but with backend port
+                this.baseUrl = `http://${window.location.hostname}:5000/api`;
+            }
             this.useMockData = false;
         }
         

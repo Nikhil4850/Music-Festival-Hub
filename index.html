@@ -18,7 +18,8 @@
             <div class="nav-menu">
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="events.html" class="nav-link">Events</a>
-                <a href="bookings.html" class="nav-link">My Bookings</a>
+                <a href="bookings.html" class="nav-link">Bookings</a>
+                <a href="club.html" class="nav-link">Club</a>
                 <a href="about.html" class="nav-link">About</a>
                 <a href="feedback.html" class="nav-link">Feedback</a>
                 <div id="authSection">
@@ -265,7 +266,7 @@
                     </div>
                 </div>
             </div>
-            
+            <br><br><br>
             <div class="lineup-actions">
                 <button class="cta-button primary mega-button" onclick="window.location.href='events.html'">
                     <span>🚀 View Full Lineup</span>
@@ -275,6 +276,7 @@
             </div>
         </div>
     </section>
+    <br><br><br><br>
 
     <!-- Our App Section -->
     <section class="app-section" id="app-section">
@@ -441,104 +443,6 @@
         </div>
     </section>
 
-    <!-- App Preview Modal -->
-    <div class="app-preview-modal" id="appPreviewModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">📱 Music Festival Hub App Preview</h2>
-                <button class="modal-close" onclick="closeAppPreview()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="app-screens-showcase">
-                <div class="screen-preview">
-                    <div class="screen-mockup">
-                        <div class="screen-content screen-home">
-                            <div class="screen-header">🏠 Home Screen</div>
-                            <div class="screen-body">
-                                <div class="screen-card">
-                                    <div class="screen-card-title">🎵 Featured Events</div>
-                                    <div class="screen-card-desc">Discover trending festivals and concerts</div>
-                                </div>
-                                <div class="screen-card">
-                                    <div class="screen-card-title">🎤 Live Artists</div>
-                                    <div class="screen-card-desc">Arijit Singh, Shreya Ghoshal & more</div>
-                                </div>
-                                <div class="screen-card">
-                                    <div class="screen-card-title">🎫 Quick Booking</div>
-                                    <div class="screen-card-desc">Book tickets in just 2 taps</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="screen-info">
-                        <h4>Home Dashboard</h4>
-                        <p>Beautiful home screen with featured events, artist lineup, and quick access to booking. Personalized recommendations based on your music taste.</p>
-                    </div>
-                </div>
-                
-                <div class="screen-preview">
-                    <div class="screen-mockup">
-                        <div class="screen-content screen-events">
-                            <div class="screen-header">🎪 Events Browser</div>
-                            <div class="screen-body">
-                                <div class="screen-card">
-                                    <div class="screen-card-title">🔍 Smart Search</div>
-                                    <div class="screen-card-desc">Find events by genre, location, date</div>
-                                </div>
-                                <div class="screen-card">
-                                    <div class="screen-card-title">📍 Location Based</div>
-                                    <div class="screen-card-desc">Events near you with GPS integration</div>
-                                </div>
-                                <div class="screen-card">
-                                    <div class="screen-card-title">💰 Price Filters</div>
-                                    <div class="screen-card-desc">Filter by budget and ticket types</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="screen-info">
-                        <h4>Event Discovery</h4>
-                        <p>Advanced search and filtering system to find the perfect events. Browse by categories, dates, locations, and price ranges with intuitive filters.</p>
-                    </div>
-                </div>
-                
-                <div class="screen-preview">
-                    <div class="screen-mockup">
-                        <div class="screen-content screen-profile">
-                            <div class="screen-header">👤 User Profile</div>
-                            <div class="screen-body">
-                                <div class="screen-card">
-                                    <div class="screen-card-title">🎫 My Tickets</div>
-                                    <div class="screen-card-desc">Digital tickets with QR codes</div>
-                                </div>
-                                <div class="screen-card">
-                                    <div class="screen-card-title">❤️ Favorites</div>
-                                    <div class="screen-card-desc">Saved events and artists</div>
-                                </div>
-                                <div class="screen-card">
-                                    <div class="screen-card-title">🔔 Notifications</div>
-                                    <div class="screen-card-desc">Event reminders & updates</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="screen-info">
-                        <h4>Personal Hub</h4>
-                        <p>Manage your bookings, view digital tickets, track favorite artists, and get personalized notifications about upcoming events and exclusive offers.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-actions">
-                <button class="modal-download-btn" onclick="downloadAPK()">
-                    <i class="fab fa-android"></i>
-                    <span>Download Android APK</span>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -587,6 +491,19 @@
     <script src="auth-manager.js"></script>
     <script src="ticketmaster-events-service.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Check if user is already logged in and redirect to dashboard
+        // Only redirect logged-in users, don't create guest users automatically
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            // Check if user is actually logged in (not just present in localStorage)
+            if (currentUser.email && currentUser.isLoggedIn === true) {
+                // User is logged in, redirect to dashboard
+                window.location.href = 'user-dashboard.html';
+            }
+            // If no user is logged in, stay on the homepage
+        });
+    </script>
     
 </body>
 </html>

@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Club - Music Festival Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Music Festival Hub</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="bookings.html" class="nav-link">My Bookings</a>
+                <a href="club.html" class="nav-link active">Club</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
+                <div id="authSection">
+                    <a href="login.html" class="nav-link login-btn">Login</a>
+                </div>
+                <div class="app-nav-dropdown">
+                    <button class="app-nav-btn" onclick="toggleAppDropdown()">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Our App</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        <div class="btn-glow"></div>
+                    </button>
+                    <div class="app-dropdown-menu" id="appDropdown">
+                        <div class="dropdown-content">
+                            <button class="dropdown-option preview-btn" onclick="openAppPreview()">
+                                <i class="fas fa-eye"></i>
+                                <div class="option-text">
+                                    <span class="option-title">Preview App</span>
+                                    <span class="option-desc">See live screenshots</span>
+                                </div>
+                            </button>
+                            <button class="dropdown-option download-btn" onclick="downloadAPK()">
+                                <i class="fab fa-android"></i>
+                                <div class="option-text">
+                                    <span class="option-title">Download APK</span>
+                                    <span class="option-desc">Get Android app</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Club Creation Section -->
+    <section class="music-search">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Create Your Club</h2>
+                <p class="section-subtitle">Search for songs and create a synchronized listening experience</p>
+            </div>
+            
+            <!-- Club Key Display -->
+            <div class="club-key-display" id="clubKeyDisplay" style="display: none; text-align: center; margin-bottom: 30px;">
+                <div class="key-card">
+                    <h3>Your Club Key</h3>
+                    <div class="key-value" id="clubKeyValue"></div>
+                    <p class="key-info">Share this key with friends to join your club</p>
+                    <p class="key-expiry" id="keyExpiry"></p>
+                </div>
+            </div>
+            
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Enter artist or song name..." class="search-input">
+                    <button id="searchButton" class="search-btn" onclick="searchSongs()">
+                        <i class="fas fa-search"></i>
+                        <span>Search Songs</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Suggested Songs Section -->
+            <div class="suggested-songs" id="suggestedSongsSection">
+                <h3 class="suggested-title">Popular Songs to Start Your Club</h3>
+                <div class="songs-grid" id="suggestedSongsGrid">
+                    <!-- Suggested songs will be populated dynamically -->
+                </div>
+                <div class="see-more-container">
+                    <button class="cta-button secondary" onclick="loadMoreSuggestedSongs()">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>See More</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="loading-spinner" id="musicLoadingSpinner" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Searching for songs...</p>
+            </div>
+            
+            <div class="songs-results" id="songsResults">
+                <!-- Search results will be displayed here -->
+            </div>
+            
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-music"></i>
+                <p>No songs found. Try searching for a different artist or song.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Club Modal -->
+    <div class="modal-overlay" id="joinClubModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Join a Club</h2>
+                <button class="close-btn" onclick="closeJoinModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="clubKeyInput">Enter Club Key</label>
+                    <input type="text" id="clubKeyInput" placeholder="Enter the club key provided by the creator" class="search-input">
+                </div>
+                <button class="cta-button primary" onclick="joinClubWithKey()">
+                    <i class="fas fa-users"></i>
+                    <span>Join Club</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section contact-section">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> club@musicfestivalhub.com</p>
+                        <p><i class="fas fa-phone"></i> +91 9766323998</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="club.html">Club</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Club Benefits</h3>
+                    <ul class="footer-links">
+                        <li><a href="#benefits">Early Access</a></li>
+                        <li><a href="#benefits">VIP Seating</a></li>
+                        <li><a href="#benefits">Backstage Passes</a></li>
+                        <li><a href="#benefits">Exclusive Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Music Festival Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth-manager.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Check if user is logged in when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!authManager || !authManager.isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Initialize club creation
+            initializeClubCreation();
+        });
+        
+        function initializeClubCreation() {
+            // Generate a club key
+            const clubKey = generateClubKey();
+            displayClubKey(clubKey);
+            
+            // Load suggested songs
+            loadSuggestedSongs();
+        }
+        
+        function generateClubKey() {
+            return 'CLUB' + Math.random().toString(36).substr(2, 6).toUpperCase();
+        }
+        
+        function displayClubKey(key) {
+            const keyDisplay = document.getElementById('clubKeyDisplay');
+            const keyValue = document.getElementById('clubKeyValue');
+            const keyExpiry = document.getElementById('keyExpiry');
+            
+            keyValue.textContent = key;
+            keyExpiry.textContent = 'Expires in 1 hour';
+            
+            keyDisplay.style.display = 'block';
+            
+            // Set expiration timer
+            setTimeout(() => {
+                keyExpiry.textContent = 'Key expired';
+                keyExpiry.style.color = '#ff006e';
+            }, 60 * 60 * 1000); // 1 hour
+        }
+        
+        // Load suggested songs
+        function loadSuggestedSongs(limit = 16) {
+            // These are popular songs to help users get started
+            const allSuggestedSongs = [
+                {
+                    trackName: "Blinding Lights",
+                    artistName: "The Weeknd",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ae/74/a0/ae74a059-9c62-4d2b-8f20-004f1797ed45/19UM1IM23975.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4e/6e/6d/4e6e6d00-07bb-11f2-15dd-097fdf6a060d/mzaf_1475685893406849011.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Dance Monkey",
+                    artistName: "Tones and I",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/43/18/79/4318798d-99a0-95c2-1559-233d7d366c94/19UM1IM18370.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/16/35/6d/16356d0b-07df-9994-63a8-1b51ab170661/mzaf_14042242747424593957.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Shape of You",
+                    artistName: "Ed Sheeran",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/8d/77/6e/8d776e64-698f-1aa5-53aa-13921d58019d/19UM1IM18366.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/14/7e/2f/147e2f6d-01e2-96ab-d03f-131100de288d/mzaf_14502413970272143193.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Levitating",
+                    artistName: "Dua Lipa",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/2f/17/3b/2f173b82-0a59-f7e0-c77d-96e5db914059/20UM1IM06467.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/8f/1c/7d/8f1c7dee-22d0-7dde-9336-01495dfbe345/mzaf_17929848616331329433.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Stay",
+                    artistName: "The Kid LAROI & Justin Bieber",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/9b/39/5d/9b395d7f-0b0e-d193-9a43-68b053f0dac5/19UM1IM21177.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c9/06/0a/c9060a8d-9853-93b6-4917-8e83d62d1004/mzaf_11463415634927736836.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Good 4 U",
+                    artistName: "Olivia Rodrigo",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/78/fe/34/78fe3494-cc27-06f7-9822-33c892979c40/21UM1IM06274.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/55/13/76/55137601-6633-11db-2108-35983849297c/mzaf_10492976650793401148.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Montero",
+                    artistName: "Lil Nas X",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/56/77/5c/56775c68-08d9-42e7-99aa-193be1d0235d/21UM1IM05111.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ba/6f/fb/ba6ffb03-1495-c924-2f80-99ac95525b60/mzaf_11769125397634641039.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Peaches",
+                    artistName: "Justin Bieber",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/90/03/4b/90034bd6-8f8c-67e2-96d1-9b9c0d109116/21UM1IM06369.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9c/84/04/9c840438-05a0-0945-645b-138565013d0b/mzaf_13624720129911748437.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Kiss Me More",
+                    artistName: "Doja Cat ft. SZA",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/54/75/75/5475755d-74bc-85c4-158c-09f219a30b8e/21UM1IM06469.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/83/2e/4d/832e4d3d-94a9-0b0d-9108-631d6e33437f/mzaf_14567679999434080788.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Save Your Tears",
+                    artistName: "The Weeknd",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/9d/08/17/9d08178b-647c-15e2-41ac-9b3894232650/20UM1IM34908.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/76/aa/52/76aa5290-359a-4e49-9a89-1e399f80018e/mzaf_14021078092228328947.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Butter",
+                    artistName: "BTS",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/53/1d/05/531d051e-8945-388c-832e-5280007d65ad/21UM1IM06471.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/7f/94/5d/7f945d0d-0250-5000-d83f-04bb56eb3c6c/mzaf_13478081038738530601.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Deja Vu",
+                    artistName: "Olivia Rodrigo",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/45/70/d7/4570d760-09f0-13f0-9052-99790c83dbd0/21UM1IM06275.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1d/7f/9d/1d7f9d78-98fa-68c7-6e4f-47977d668644/mzaf_17597822394138414456.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Industry Baby",
+                    artistName: "Lil Nas X & Jack Harlow",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/7e/6d/a9/7e6da993-501e-66ce-9735-47d40231e6d0/21UM1IM18368.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9a/0e/88/9a0e8851-03ae-3558-9999-0ec15eeb39e9/mzaf_9422004602009024971.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Heat Waves",
+                    artistName: "Glass Animals",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/92/1c/79/921c7970-0d5f-0490-01ff-3b9e0b6aec94/21UM1IM06472.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/45/09/68/450968d8-9481-9365-7763-9549435a2737/mzaf_13704504615530878535.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Easy On Me",
+                    artistName: "Adele",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/5d/0d/30/5d0d3005-9090-3989-9270-9c9d55751afe/21UM1IM18369.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/45/7e/6b/457e6b36-945e-9414-96f0-78b4736b1fb0/mzaf_17956240670367307350.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Shivers",
+                    artistName: "Ed Sheeran",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/5d/0d/30/5d0d3005-9090-3989-9270-9c9d55751afe/21UM1IM18369.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/9b/ae/6d/9bae6d87-8059-9dc0-0938-0269189282f0/mzaf_14629961690934419821.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "As It Was",
+                    artistName: "Harry Styles",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/03/26/63/03266392-3539-3950-7324-1b9b02301408/19UM1IM34909.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/8c/75/0c/8c750c60-9270-9315-8a07-42817585cf44/mzaf_10577967716776012853.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Running Up That Hill",
+                    artistName: "Kate Bush",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/85/1f/7d/851f7de9-09b0-05c6-0413-1f10373c2a1f/22UM1IM04866.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/55/81/10/558110bb-84df-92f5-0c58-072015b30315/mzaf_13321855248467146808.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "About Damn Time",
+                    artistName: "Lizzo",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/8c/0d/7d/8c0d7d8f-0c1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04867.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Bad Habit",
+                    artistName: "Steve Lacy",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04868.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Unholy",
+                    artistName: "Sam Smith ft. Kim Petras",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04869.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Anti-Hero",
+                    artistName: "Taylor Swift",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04870.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Die For You",
+                    artistName: "The Weeknd",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04871.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Flowers",
+                    artistName: "Miley Cyrus",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04872.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Kill Bill",
+                    artistName: "SZA",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04873.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Creepin'",
+                    artistName: "Metro Boomin ft. The Weeknd, 21 Savage",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04874.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Calm Down",
+                    artistName: "Rema ft. Selena Gomez",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04875.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "I'm Good (Blue)",
+                    artistName: "David Guetta & Bebe Rexha",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04876.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Sure Thing",
+                    artistName: "Miguel",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04877.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Made You Look",
+                    artistName: "Meghan Trainor",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04878.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                },
+                {
+                    trackName: "Last Night",
+                    artistName: "Morgan Wallen",
+                    artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/22UM1IM04879.rgb.jpg/100x100bb.jpg",
+                    previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1f/1f/1f/1f1f1f1f-1f1f-1f1f-1f1f-1f1f-1f1f1f1f1f1f/mzaf_1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f.plus.aac.p.m4a"
+                }
+            ];
+            
+            const songsToShow = allSuggestedSongs.slice(0, limit);
+            const songsGrid = document.querySelector('.suggested-songs .songs-grid');
+            songsGrid.innerHTML = '';
+            
+            songsToShow.forEach((song, index) => {
+                const songCard = createSongCard(song);
+                songCard.style.animationDelay = `${index * 0.1}s`;
+                songsGrid.appendChild(songCard);
+            });
+            
+            // Show "See More" button if there are more songs to load
+            const seeMoreContainer = document.querySelector('.see-more-container');
+            if (limit < allSuggestedSongs.length) {
+                seeMoreContainer.style.display = 'flex';
+            } else {
+                seeMoreContainer.style.display = 'none';
+            }
+        }
+        
+        // Load more suggested songs
+        function loadMoreSuggestedSongs() {
+            loadSuggestedSongs(32); // Load more songs
+        }
+        
+        // iTunes Music Search Functions
+        async function searchSongs() {
+            const searchInput = document.getElementById('searchInput');
+            const loadingSpinner = document.getElementById('musicLoadingSpinner');
+            const songsResults = document.getElementById('songsResults');
+            const noResults = document.getElementById('noResults');
+            const searchButton = document.getElementById('searchButton');
+            const suggestedSongsSection = document.getElementById('suggestedSongsSection');
+            
+            const query = searchInput.value.trim();
+            
+            if (!query) {
+                showNotification('⚠️ Please enter an artist or song name to search', 'error');
+                return;
+            }
+            
+            try {
+                // Hide suggested songs when searching
+                suggestedSongsSection.style.display = 'none';
+                
+                // Show loading state
+                loadingSpinner.style.display = 'block';
+                songsResults.innerHTML = '';
+                noResults.style.display = 'none';
+                searchButton.disabled = true;
+                
+                // iTunes Search API endpoint - limit to 16 songs
+                const apiUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&limit=16&media=music&entity=song`;
+                
+                const response = await fetch(apiUrl);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch songs');
+                }
+                
+                const data = await response.json();
+                const songs = data.results || [];
+                
+                loadingSpinner.style.display = 'none';
+                searchButton.disabled = false;
+                
+                if (songs.length === 0) {
+                    noResults.style.display = 'block';
+                    return;
+                }
+                
+                displaySongs(songs);
+                
+            } catch (error) {
+                console.error('Error searching songs:', error);
+                loadingSpinner.style.display = 'none';
+                searchButton.disabled = false;
+                showNotification('❌ Error searching for songs. Please try again.', 'error');
+                
+                // Show suggested songs again if search fails
+                document.getElementById('suggestedSongsSection').style.display = 'block';
+            }
+        }
+        
+        function displaySongs(songs) {
+            const songsResults = document.getElementById('songsResults');
+            songsResults.innerHTML = '';
+            
+            // Create a grid container for the songs
+            const gridContainer = document.createElement('div');
+            gridContainer.className = 'songs-grid';
+            
+            songs.forEach((song, index) => {
+                const songCard = createSongCard(song);
+                // Add animation delay for each card
+                songCard.style.animationDelay = `${index * 0.1}s`;
+                gridContainer.appendChild(songCard);
+            });
+            
+            songsResults.appendChild(gridContainer);
+        }
+        
+        function createSongCard(song) {
+            const card = document.createElement('div');
+            card.className = 'song-card';
+            
+            const artworkUrl = song.artworkUrl100 || song.artworkUrl60 || '';
+            const previewUrl = song.previewUrl || '';
+            const trackName = song.trackName || 'Unknown Track';
+            const artistName = song.artistName || 'Unknown Artist';
+            const albumName = song.collectionName || '';
+            const releaseDate = song.releaseDate ? new Date(song.releaseDate).getFullYear() : '';
+            const trackTime = song.trackTimeMillis ? formatTime(song.trackTimeMillis) : '';
+            
+            card.innerHTML = `
+                <div class="song-artwork">
+                    <img src="${artworkUrl}" alt="${trackName}" onerror="this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=♪'">
+                    <div class="song-overlay">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                </div>
+                <div class="song-details">
+                    <h3 class="song-name">${trackName}</h3>
+                    <p class="artist-name">${artistName}</p>
+                    ${albumName ? `<p class="album-name">${albumName} ${releaseDate ? `(${releaseDate})` : ''}</p>` : ''}
+                    ${trackTime ? `<p class="song-duration"><i class="fas fa-clock"></i> ${trackTime}</p>` : ''}
+                </div>
+                <div class="song-player">
+                    ${previewUrl ? 
+                        `<audio controls preload="none">
+                            <source src="${previewUrl}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>` : 
+                        '<p class="no-preview">No preview available</p>'
+                    }
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Helper function to format time in mm:ss
+        function formatTime(milliseconds) {
+            const totalSeconds = Math.floor(milliseconds / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Enter key support for search
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchSongs();
+                    }
+                });
+            }
+        });
+        
+        // Join Club Modal Functions
+        function openJoinModal() {
+            document.getElementById('joinClubModal').style.display = 'flex';
+        }
+        
+        function closeJoinModal() {
+            document.getElementById('joinClubModal').style.display = 'none';
+        }
+        
+        function joinClubWithKey() {
+            const clubKeyInput = document.getElementById('clubKeyInput');
+            const clubKey = clubKeyInput.value.trim();
+            
+            if (!clubKey) {
+                showNotification('⚠️ Please enter a club key', 'error');
+                return;
+            }
+            
+            // Validate club key format
+            if (!clubKey.startsWith('CLUB') || clubKey.length !== 10) {
+                showNotification('❌ Invalid club key format', 'error');
+                return;
+            }
+            
+            showNotification('🎉 Successfully joined the club!', 'success');
+            closeJoinModal();
+            
+            // Redirect to club experience page
+            setTimeout(() => {
+                window.location.href = 'club-experience.html?key=' + clubKey;
+            }, 1500);
+        }
+        
+        // Utility function to show notifications
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'rgba(72, 187, 120, 0.9)' : 'rgba(220, 38, 38, 0.9)'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                backdrop-filter: blur(10px);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+    
+    <style>
+        .club-key-display {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            margin-bottom: 3rem;
+        }
+        
+        .key-card h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .key-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff006e;
+            letter-spacing: 3px;
+            margin: 1rem 0;
+            text-shadow: 0 0 10px rgba(255, 0, 110, 0.5);
+        }
+        
+        .key-info {
+            color: #cccccc;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .key-expiry {
+            color: #48bb78;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(40, 40, 40, 0.95));
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-header h2 {
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff006e, #8b5cf6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        /* Suggested Songs Styles */
+        .suggested-songs {
+            margin: 3rem 0;
+        }
+        
+        .suggested-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            background: linear-gradient(135deg, #ff006e, #8b5cf6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Ensure song cards in suggested section have proper styling */
+        .suggested-songs .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+        }
+        
+        .suggested-songs .song-card {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(10, 10, 15, 0.98) 100%);
+            border-radius: 20px;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            max-width: 300px;
+            width: 100%;
+        }
+        
+        .suggested-songs .song-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 0, 110, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .suggested-title {
+                font-size: 1.5rem;
+            }
+            
+            .suggested-songs .songs-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</body>
+</html>
